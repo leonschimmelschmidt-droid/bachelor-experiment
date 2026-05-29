@@ -129,17 +129,16 @@
         if (step === 1) {
             experimentData.decision1 = choice;
             
-            if (treatmentPrice === 849) {
-                if (choice === 'Annahme') {
-                    document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Ich mache den Vertrag direkt für Sie fertig. Das Gerät inklusive Zubehörpaket und persönlicher Einweisung kostet wie besprochen <strong>849 €</strong>.“`;
+            if (choice === 'Annahme') {
+                // Wenn direkt angenommen wird, bleibt der Text für alle Gruppen standardmäßig positiv
+                document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Da Sie sich direkt entschieden haben, gebe ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung sogar für <strong>849 €</strong>.“`;
+            } else {
+                // WENN ABGELEHNT WIRD:
+                if (treatmentPrice === 849) {
+                    // Sonderfall: Druck-Text bei 849 €, da kein Rabatt mehr möglich ist
+                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Bedenken, aber Sie müssen wissen: Dieses exklusive Einstiegsangebot gilt wirklich nur heute, solange ich hier vor Ihrer Tür stehe. Sobald ich weitergehe, ist die Chance vorbei und Sie zahlen im Handel wieder den regulären Preis. Überlegen Sie gut – es bleibt bei den einmaligen <strong>849 €</strong> für das gesamte Paket. Nehmen Sie das Angebot an?“`;
                 } else {
-                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Bedenken. Aber bleiben wir fair: Wenn Sie sich heute direkt entscheiden, kann ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung als absoluten Festpreis für <strong>849 €</strong> überlassen.“`;
-                }
-            } 
-            else {
-                if (choice === 'Annahme') {
-                    document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Da Sie sich direkt entschieden haben, gebe ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung sogar für <strong>849 €</strong>.“`;
-                } else {
+                    // Normalfall: Rabatt-Text für alle höheren Preise (1500, 6000, 8000, 10000)
                     document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Ablehnung. Ich kann Ihnen entgegenkommen: Wenn Sie sich heute entscheiden, erhalten Sie das Gerät inklusive Zubehörpaket und persönlicher Einweisung für <strong>849 €</strong>.“`;
                 }
             }
@@ -152,9 +151,11 @@
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.remove('hidden');
 
+            // Daten an das Google Sheet senden
             saveData(experimentData);
         }
     }
+    
 
     function saveData(data) {
         // FÜGE HIER IN DIE ANFÜHRUNGSZEICHEN DEINE KOPIERTE GOOGLE WEB-APP-URL EIN:
@@ -186,5 +187,3 @@
 </script>
 </body>
 </html>
-
-
