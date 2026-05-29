@@ -157,18 +157,34 @@
     }
 
     function saveData(data) {
-        fetch('/api/save', {
+        // FÜGE HIER IN DIE ANFÜHRUNGSZEICHEN DEINE KOPIERTE GOOGLE WEB-APP-URL EIN:
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYqa_Kd0i-DOhGvegHKL6mS9xjSdDJQ51tRGqYmKTqy29DCVky1qHOEd8w2mzDwS88/exec";
+
+        const payload = {
+            "Zeitstempel": new Date().toLocaleString('de-DE'),
+            "Treatment": data.treatment,
+            "Entscheidung_1": data.decision1,
+            "Entscheidung_2": data.decision2
+        };
+
+        // Schickt die Daten direkt an dein Google Sheet
+        fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
+            mode: 'no-cors', // Verhindert CORS-Blockaden im Browser
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(payload)
         })
-        .then(response => response.json())
-        .then(result => console.log('Server-Antwort:', result))
-        .catch(error => console.error('Fehler beim Senden:', error));
+        .then(() => {
+            console.log('Erfolgreich an Google Sheets gesendet!');
+        })
+        .catch(error => {
+            console.error('Fehler beim Senden an Google Sheets:', error);
+        });
     }
 </script>
 </body>
 </html>
+
 
