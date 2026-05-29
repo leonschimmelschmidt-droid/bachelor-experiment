@@ -1,19 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konsumentenstudie</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container {
+            max-width: 650px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        h2 { color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
+        .box { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin: 15px 0; border-radius: 4px; }
+        .btn-container { margin-top: 20px; display: flex; gap: 15px; }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-weight: bold;
+        }
+        .btn-accept { background-color: #2ecc71; color: white; }
+        .btn-accept:hover { background-color: #27ae60; }
+        .btn-reject { background-color: #e74c3c; color: white; }
+        .btn-reject:hover { background-color: #c0392b; }
+        .hidden { display: none; }
+        .highlight { font-weight: bold; color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="step1">
+        <h2>Wissenschaftliche Studie zum Kaufverhalten</h2>
+        <p>Bitte lesen Sie das folgende Szenario aufmerksam durch:</p>
+        
+        <div class="box">
+            <strong>Ihre Ausgangslage:</strong><br>
+            Sie möchten sich demnächst einen neuen Marken-Staubsauger kaufen. In einem Elektronikmarkt haben Sie kürzlich ein vergleichbares Modell derselben Marke gesehen. Der Preis lag ungefähr bei <strong>700-800 €</strong>. Allerdings erinnern Sie sich nicht mehr genau an den Modellnamen, die Ausstattung oder das enthaltene Zubehör.
+        </div>
+
+        <div class="box">
+            <strong>Die Situation:</strong><br>
+            Es klingelt an Ihrer Haustür. Ein offizieller Vertreter derselben Staubsauger-Marke steht vor Ihnen und stellt Ihnen einen Staubsauger dieser Marke vor. Er erklärt, dass das Paket aus einem leistungsstarken Marken-Staubsauger, mehreren Spezialdüsen, einem Filterpaket sowie einer persönlichen Einweisung besteht.
+        </div>
+
+        <p>Der Vertreter bietet Ihnen das Paket für <span id="first-price" class="highlight">--- €</span> an.</p>
+        
+        <h3>Ihre Entscheidung:</h3>
+        <div class="btn-container">
+            <button class="btn-accept" onclick="submitDecision(1, 'Annahme')">Angebot annehmen</button>
+            <button class="btn-reject" onclick="submitDecision(1, 'Ablehnung')">Angebot ablehnen</button>
+        </div>
+    </div>
+
+    <div id="step2" class="hidden">
+        <h2>Reaktion des Verkäufers</h2>
+        
+        <div class="box">
+            <p id="seller-text"></p>
+        </div>
+
+        <div class="box">
+            <strong>Zusatzinformation:</strong><br>
+            Das ist das finale Angebot des Verkäufers. Eine weitere Preisreduzierung oder Nachverhandlung ist nicht möglich. Sie können dieses Angebot jetzt nur annehmen oder ablehnen.
+        </div>
+
+        <h3>Ihre finale Entscheidung:</h3>
+        <div class="btn-container">
+            <button class="btn-accept" onclick="submitDecision(2, 'Annahme')">Angebot annehmen</button>
+            <button class="btn-reject" onclick="submitDecision(2, 'Ablehnung')">Angebot ablehnen</button>
+        </div>
+    </div>
+
+    <div id="step3" class="hidden">
+        <h2>Vielen Dank für Ihre Teilnahme!</h2>
+        <p>Ihre Antworten wurden erfolgreich und anonymisiert aufgezeichnet. Sie können dieses Fenster nun schließen.</p>
+    </div>
+</div>
+
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     let treatmentPrice = parseInt(urlParams.get('t'));
 
     // FALLS KEIN TREATMENT IN DER URL STEHT -> AUTOMATISCH WÜRFELN (33,33% Gewichtung)
     if (!treatmentPrice) {
-        const rand = Math.random(); // Generiert eine Zahl zwischen 0 und 1
+        const rand = Math.random();
 
         if (rand < 0.3333) {
-            // Hauptgruppe 1: 849 €
             treatmentPrice = 849;
         } else if (rand < 0.6666) {
-            // Hauptgruppe 2: 1500 €
             treatmentPrice = 1500;
         } else {
-            // Hauptgruppe 3: Boomerang-Zweig (Zufall zwischen 6000, 8000, 10000)
             const boomerangOptions = [6000, 8000, 10000];
             const randomBoomerang = Math.floor(Math.random() * boomerangOptions.length);
             treatmentPrice = boomerangOptions[randomBoomerang];
@@ -23,10 +113,10 @@
     // Zur Sicherheit validieren
     const validTreatments = [849, 1500, 6000, 8000, 10000];
     if (!validTreatments.includes(treatmentPrice)) {
-        treatmentPrice = 1500; // Fallback
+        treatmentPrice = 1500; 
     }
 
-    // Preis auf der ersten Seite anzeigen
+    // Preis anzeigen
     document.getElementById('first-price').innerText = treatmentPrice.toLocaleString('de-DE') + " €";
 
     let experimentData = {
@@ -39,7 +129,6 @@
         if (step === 1) {
             experimentData.decision1 = choice;
             
-            // Sonderfall abfangen: Wenn das Erstangebot SCHON 849 € war
             if (treatmentPrice === 849) {
                 if (choice === 'Annahme') {
                     document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Ich mache den Vertrag direkt für Sie fertig. Das Gerät inklusive Zubehörpaket und persönlicher Einweisung kostet wie besprochen <strong>849 €</strong>.“`;
@@ -47,7 +136,6 @@
                     document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Bedenken. Aber bleiben wir fair: Wenn Sie sich heute direkt entscheiden, kann ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung als absoluten Festpreis für <strong>849 €</strong> überlassen.“`;
                 }
             } 
-            // Normalfall für alle anderen höheren Preise (1500, 6000, 8000, 10000)
             else {
                 if (choice === 'Annahme') {
                     document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Da Sie sich direkt entschieden haben, gebe ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung sogar für <strong>849 €</strong>.“`;
@@ -64,7 +152,6 @@
             document.getElementById('step2').classList.add('hidden');
             document.getElementById('step3').classList.remove('hidden');
 
-            // Daten an den VS-Server senden
             saveData(experimentData);
         }
     }
@@ -82,3 +169,6 @@
         .catch(error => console.error('Fehler beim Senden:', error));
     }
 </script>
+</body>
+</html>
+
