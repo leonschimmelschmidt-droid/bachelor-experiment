@@ -122,7 +122,7 @@
     let experimentData = {
         treatment: treatmentPrice,
         decision1: null,
-        decision2: null
+        decision2: 'Nicht benötigt (Direkte Annahme)' // Standard-Fallback, falls direkt angenommen wird
     };
 
     function submitDecision(step, choice) {
@@ -130,10 +130,12 @@
             experimentData.decision1 = choice;
             
             if (choice === 'Annahme') {
-                // Wenn direkt angenommen wird, bleibt der Text für alle Gruppen standardmäßig positiv
-                document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Da Sie sich direkt entschieden haben, gebe ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung sogar für <strong>849 €</strong>.“`;
+                // FALL A: Direkt angenommen -> Experiment sofort beenden und speichern!
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step3').classList.remove('hidden');
+                saveData(experimentData);
             } else {
-                // WENN ABGELEHNT WIRD:
+                // FALL B: Abgelehnt -> Verhandlung einleiten (Schritt 2 anzeigen)
                 if (treatmentPrice === 849) {
                     // Sonderfall: Druck-Text bei 849 €, da kein Rabatt mehr möglich ist
                     document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Bedenken, aber Sie müssen wissen: Dieses exklusive Einstiegsangebot gilt wirklich nur heute, solange ich hier vor Ihrer Tür stehe. Sobald ich weitergehe, ist die Chance vorbei und Sie zahlen im Handel wieder den regulären Preis. Überlegen Sie gut – es bleibt bei den einmaligen <strong>849 €</strong> für das gesamte Paket. Nehmen Sie das Angebot an?“`;
@@ -141,11 +143,12 @@
                     // Normalfall: Rabatt-Text für alle höheren Preise (1500, 6000, 8000, 10000)
                     document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Ablehnung. Ich kann Ihnen entgegenkommen: Wenn Sie sich heute entscheiden, erhalten Sie das Gerät inklusive Zubehörpaket und persönlicher Einweisung für <strong>849 €</strong>.“`;
                 }
+                
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
             }
-
-            document.getElementById('step1').classList.add('hidden');
-            document.getElementById('step2').classList.remove('hidden');
         } else if (step === 2) {
+            // Verhandlungsrunde abschließen (nur erreicht, wenn Schritt 1 'Ablehnung' war)
             experimentData.decision2 = choice;
 
             document.getElementById('step2').classList.add('hidden');
@@ -155,7 +158,6 @@
             saveData(experimentData);
         }
     }
-    
 
     function saveData(data) {
         // FÜGE HIER IN DIE ANFÜHRUNGSZEICHEN DEINE KOPIERTE GOOGLE WEB-APP-URL EIN:
