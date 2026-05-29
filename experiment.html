@@ -1,0 +1,84 @@
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let treatmentPrice = parseInt(urlParams.get('t'));
+
+    // FALLS KEIN TREATMENT IN DER URL STEHT -> AUTOMATISCH WÜRFELN (33,33% Gewichtung)
+    if (!treatmentPrice) {
+        const rand = Math.random(); // Generiert eine Zahl zwischen 0 und 1
+
+        if (rand < 0.3333) {
+            // Hauptgruppe 1: 849 €
+            treatmentPrice = 849;
+        } else if (rand < 0.6666) {
+            // Hauptgruppe 2: 1500 €
+            treatmentPrice = 1500;
+        } else {
+            // Hauptgruppe 3: Boomerang-Zweig (Zufall zwischen 6000, 8000, 10000)
+            const boomerangOptions = [6000, 8000, 10000];
+            const randomBoomerang = Math.floor(Math.random() * boomerangOptions.length);
+            treatmentPrice = boomerangOptions[randomBoomerang];
+        }
+    }
+
+    // Zur Sicherheit validieren
+    const validTreatments = [849, 1500, 6000, 8000, 10000];
+    if (!validTreatments.includes(treatmentPrice)) {
+        treatmentPrice = 1500; // Fallback
+    }
+
+    // Preis auf der ersten Seite anzeigen
+    document.getElementById('first-price').innerText = treatmentPrice.toLocaleString('de-DE') + " €";
+
+    let experimentData = {
+        treatment: treatmentPrice,
+        decision1: null,
+        decision2: null
+    };
+
+    function submitDecision(step, choice) {
+        if (step === 1) {
+            experimentData.decision1 = choice;
+            
+            // Sonderfall abfangen: Wenn das Erstangebot SCHON 849 € war
+            if (treatmentPrice === 849) {
+                if (choice === 'Annahme') {
+                    document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Ich mache den Vertrag direkt für Sie fertig. Das Gerät inklusive Zubehörpaket und persönlicher Einweisung kostet wie besprochen <strong>849 €</strong>.“`;
+                } else {
+                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Bedenken. Aber bleiben wir fair: Wenn Sie sich heute direkt entscheiden, kann ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung als absoluten Festpreis für <strong>849 €</strong> überlassen.“`;
+                }
+            } 
+            // Normalfall für alle anderen höheren Preise (1500, 6000, 8000, 10000)
+            else {
+                if (choice === 'Annahme') {
+                    document.getElementById('seller-text').innerHTML = `„Vielen Dank für Ihr Vertrauen! Da Sie sich direkt entschieden haben, gebe ich Ihnen das Gerät inklusive Zubehörpaket und persönlicher Einweisung sogar für <strong>849 €</strong>.“`;
+                } else {
+                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Ablehnung. Ich kann Ihnen entgegenkommen: Wenn Sie sich heute entscheiden, erhalten Sie das Gerät inklusive Zubehörpaket und persönlicher Einweisung für <strong>849 €</strong>.“`;
+                }
+            }
+
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        } else if (step === 2) {
+            experimentData.decision2 = choice;
+
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+
+            // Daten an den VS-Server senden
+            saveData(experimentData);
+        }
+    }
+
+    function saveData(data) {
+        fetch('/api/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => console.log('Server-Antwort:', result))
+        .catch(error => console.error('Fehler beim Senden:', error));
+    }
+</script>
