@@ -77,21 +77,21 @@
             background: #fdfdfd;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
-            padding: 15px;
+            padding: 20px 15px 15px 15px;
             margin-top: 8px;
         }
         .likert-options { 
             display: flex; 
             justify-content: space-between; 
             position: relative;
-            margin-top: 10px;
+            margin-top: 5px;
             padding: 0 10px;
         }
         /* Verbindungsstrich im Hintergrund */
         .likert-options::before {
             content: "";
             position: absolute;
-            top: 15px; left: 25px; right: 25px;
+            top: 32px; left: 25px; right: 25px;
             height: 2px;
             background: #e2e8f0;
             z-index: 1;
@@ -105,15 +105,22 @@
             z-index: 2;
             width: 50px;
         }
+        .likert-option span { 
+            font-size: 14px; 
+            font-weight: bold; 
+            color: #2c3e50; 
+            order: 1;
+            margin-bottom: 12px; /* Entzerrung: Gibt der Zahl Platz nach unten */
+        }
         .likert-option input { 
             cursor: pointer; 
-            margin: 0 0 8px 0; 
+            margin: 0; 
             transform: scale(1.3); 
             background: white;
+            order: 2;
         }
-        .likert-option span { font-size: 13px; font-weight: 600; color: #4a5568; }
-        .likert-labels { display: flex; justify-content: space-between; margin-top: 8px; padding: 0 5px; }
-        .likert-label { font-size: 12px; color: #718096; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .likert-labels { display: flex; justify-content: space-between; margin-top: 15px; padding: 0 5px; }
+        .likert-label { font-size: 11px; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
@@ -170,7 +177,7 @@
             <div class="form-group">
                 <label for="perceived_price">3. Wie hoch war das erste Angebot, das Ihnen der Vertreter an der Tür gemacht hat?</label>
                 <div class="input-wrapper">
-                    <input type="text" id="perceived_price" class="input-euro-clean" required placeholder="z.B. 1.500">
+                    <input type="text" id="perceived_price" class="input-euro-clean" required placeholder="z.B. 1500" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                     <span class="currency-symbol">€</span>
                 </div>
             </div>
@@ -183,11 +190,11 @@
                 <label>a) Der erste Angebotspreis wirkte auf mich angemessen.</label>
                 <div class="likert-container">
                     <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4a" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4a" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4a" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4a" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4a" value="5"><span>5</span></label>
+                        <label class="likert-option"><span>1</span><input type="radio" name="q4a" value="1" required></label>
+                        <label class="likert-option"><span>2</span><input type="radio" name="q4a" value="2"></label>
+                        <label class="likert-option"><span>3</span><input type="radio" name="q4a" value="3"></label>
+                        <label class="likert-option"><span>4</span><input type="radio" name="q4a" value="4"></label>
+                        <label class="likert-option"><span>5</span><input type="radio" name="q4a" value="5"></label>
                     </div>
                     <div class="likert-labels">
                         <span class="likert-label">stimme gar nicht zu</span>
@@ -200,11 +207,11 @@
                 <label>b) Das finale Angebot von 849 € wirkte auf mich attraktiv.</label>
                 <div class="likert-container">
                     <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4b" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="5"><span>5</span></label>
+                        <label class="likert-option"><span>1</span><input type="radio" name="q4b" value="1" required></label>
+                        <label class="likert-option"><span>2</span><input type="radio" name="q4b" value="2"></label>
+                        <label class="likert-option"><span>3</span><input type="radio" name="q4b" value="3"></label>
+                        <label class="likert-option"><span>4</span><input type="radio" name="q4b" value="4"></label>
+                        <label class="likert-option"><span>5</span><input type="radio" name="q4b" value="5"></label>
                     </div>
                     <div class="likert-labels">
                         <span class="likert-label">stimme gar nicht zu</span>
@@ -217,11 +224,11 @@
                 <label>c) Das finale Angebot von 849 € wirkte wie ein Entgegenkommen bzw. Zugeständnis des Verkäufers.</label>
                 <div class="likert-container">
                     <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4c" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="5"><span>5</span></label>
+                        <label class="likert-option"><span>1</span><input type="radio" name="q4c" value="1" required></label>
+                        <label class="likert-option"><span>2</span><input type="radio" name="q4c" value="2"></label>
+                        <label class="likert-option"><span>3</span><input type="radio" name="q4c" value="3"></label>
+                        <label class="likert-option"><span>4</span><input type="radio" name="q4c" value="4"></label>
+                        <label class="likert-option"><span>5</span><input type="radio" name="q4c" value="5"></label>
                     </div>
                     <div class="likert-labels">
                         <span class="likert-label">stimme gar nicht zu</span>
@@ -234,11 +241,11 @@
                 <label>d) Das erste Angebot hat in mir Verärgerung ausgelöst und dazu geführt, dass ich auch das finale Angebot abgelehnt habe.</label>
                 <div class="likert-container">
                     <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4d" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="5"><span>5</span></label>
+                        <label class="likert-option"><span>1</span><input type="radio" name="q4d" value="1" required></label>
+                        <label class="likert-option"><span>2</span><input type="radio" name="q4d" value="2"></label>
+                        <label class="likert-option"><span>3</span><input type="radio" name="q4d" value="3"></label>
+                        <label class="likert-option"><span>4</span><input type="radio" name="q4d" value="4"></label>
+                        <label class="likert-option"><span>5</span><input type="radio" name="q4d" value="5"></label>
                     </div>
                     <div class="likert-labels">
                         <span class="likert-label">stimme gar nicht zu</span>
@@ -251,11 +258,11 @@
                 <label>e) Das Szenario war für mich verständlich und nachvollziehbar.</label>
                 <div class="likert-container">
                     <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4e" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="5"><span>5</span></label>
+                        <label class="likert-option"><span>1</span><input type="radio" name="q4e" value="1" required></label>
+                        <label class="likert-option"><span>2</span><input type="radio" name="q4e" value="2"></label>
+                        <label class="likert-option"><span>3</span><input type="radio" name="q4e" value="3"></label>
+                        <label class="likert-option"><span>4</span><input type="radio" name="q4e" value="4"></label>
+                        <label class="likert-option"><span>5</span><input type="radio" name="q4e" value="5"></label>
                     </div>
                     <div class="likert-labels">
                         <span class="likert-label">stimme gar nicht zu</span>
@@ -278,7 +285,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     let treatmentPrice = parseInt(urlParams.get('t'));
 
-    // FALLS KEIN TREATMENT IN DER URL STEHT -> AUTOMATISCH WÜRFELN (Gleichverteilt auf 4 Gruppen)
     if (!treatmentPrice) {
         const rand = Math.random();
         if (rand < 0.25) {
@@ -286,7 +292,7 @@
         } else if (rand < 0.50) {
             treatmentPrice = 1500;
         } else if (rand < 0.75) {
-            treatmentPrice = 4000; // NEUES TREATMENT MIT DRIN
+            treatmentPrice = 4000; 
         } else {
             const boomerangOptions = [6000, 8000, 10000];
             const randomBoomerang = Math.floor(Math.random() * boomerangOptions.length);
@@ -294,13 +300,11 @@
         }
     }
 
-    // Zur Sicherheit validieren inklusive der 4000er Option
     const validTreatments = [849, 1500, 4000, 6000, 8000, 10000];
     if (!validTreatments.includes(treatmentPrice)) {
         treatmentPrice = 1500; 
     }
 
-    // Preis anzeigen
     document.getElementById('first-price').innerText = treatmentPrice.toLocaleString('de-DE') + " €";
 
     let experimentData = {
@@ -341,9 +345,7 @@
     function submitSurvey(event) {
         event.preventDefault();
 
-        // PUNKT-REINIGUNG: Tausenderpunkte und Kommas radikal entfernen, damit Sheets nur reine Zahlen bekommt
         let rawPriceInput = document.getElementById('perceived_price').value;
-        // Entfernt alles, was keine Ziffer ist
         let cleanPrice = rawPriceInput.replace(/\D/g, ''); 
 
         experimentData.perceivedPrice = cleanPrice;
