@@ -13,46 +13,107 @@
             padding: 20px;
         }
         .container {
-            max-width: 650px;
+            max-width: 680px;
             margin: 40px auto;
             background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
-        h2 { color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 10px; }
-        .box { background: #f8f9fa; border-left: 4px solid #3498db; padding: 15px; margin: 15px 0; border-radius: 4px; }
-        .btn-container { margin-top: 20px; display: flex; gap: 15px; }
+        h2 { color: #2c3e50; border-bottom: 2px solid #ecf0f1; padding-bottom: 12px; margin-top: 0; }
+        .box { background: #f8f9fa; border-left: 4px solid #3498db; padding: 18px; margin: 20px 0; border-radius: 4px; font-size: 15px; }
+        .btn-container { margin-top: 25px; display: flex; gap: 15px; }
         button {
-            padding: 12px 24px;
+            padding: 14px 28px;
             font-size: 16px;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
             font-weight: bold;
         }
-        .btn-accept { background-color: #2ecc71; color: white; }
-        .btn-accept:hover { background-color: #27ae60; }
-        .btn-reject { background-color: #e74c3c; color: white; }
-        .btn-reject:hover { background-color: #c0392b; }
-        .btn-submit { background-color: #3498db; color: white; width: 100%; margin-top: 30px; padding: 15px; font-size: 18px; }
-        .btn-submit:hover { background-color: #2980b9; }
+        .btn-accept { background-color: #2ecc71; color: white; flex: 1; }
+        .btn-accept:hover { background-color: #27ae60; transform: translateY(-1px); }
+        .btn-reject { background-color: #e74c3c; color: white; flex: 1; }
+        .btn-reject:hover { background-color: #c0392b; transform: translateY(-1px); }
+        
+        .btn-submit { 
+            background-color: #34495e; 
+            color: white; 
+            width: 100%; 
+            margin-top: 35px; 
+            padding: 16px; 
+            font-size: 16px; 
+            border-radius: 6px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        .btn-submit:hover { background-color: #2c3e50; transform: translateY(-1px); }
         .hidden { display: none; }
-        .highlight { font-weight: bold; color: #e74c3c; }
+        .highlight { font-weight: bold; color: #e74c3c; font-size: 18px; }
         
-        /* Fragebogen Styling */
-        .form-group { margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #eee; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 10px; color: #2c3e50; }
-        .input-euro { width: 120px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        /* Premium Fragebogen Styling */
+        .survey-instruction { background: #e8f4fd; color: #2980b9; padding: 12px; border-radius: 6px; font-size: 14px; font-weight: 500; margin-bottom: 25px; }
+        .form-group { margin-bottom: 35px; padding-bottom: 20px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 12px; color: #2c3e50; font-size: 15px; }
         
-        /* Likert-Skala (Radio-Buttons nebeneinander) */
-        .likert-scale { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; background: #fdfdfd; padding: 10px; border-radius: 4px; }
-        .likert-label { font-size: 13px; color: #7f8c8d; max-width: 90px; text-align: center; font-weight: normal !important; }
-        .likert-options { display: flex; gap: 15px; }
-        .likert-option { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
-        .likert-option input { cursor: pointer; margin-bottom: 5px; transform: scale(1.2); }
-        .likert-option span { font-size: 12px; color: #555; }
+        .input-wrapper { display: flex; align-items: center; gap: 10px; }
+        .input-euro-clean { 
+            width: 140px; 
+            padding: 12px; 
+            border: 2px solid #bdc3c7; 
+            border-radius: 6px; 
+            font-size: 16px; 
+            font-weight: bold;
+            color: #2c3e50;
+            transition: border-color 0.2s;
+        }
+        .input-euro-clean:focus { border-color: #3498db; outline: none; }
+        .currency-symbol { font-size: 18px; font-weight: bold; color: #7f8c8d; }
+        
+        /* Modernes Likert-Skala Design (Row-basiert) */
+        .likert-container {
+            display: flex;
+            flex-direction: column;
+            background: #fdfdfd;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 8px;
+        }
+        .likert-options { 
+            display: flex; 
+            justify-content: space-between; 
+            position: relative;
+            margin-top: 10px;
+            padding: 0 10px;
+        }
+        /* Verbindungsstrich im Hintergrund */
+        .likert-options::before {
+            content: "";
+            position: absolute;
+            top: 15px; left: 25px; right: 25px;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+        .likert-option { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            cursor: pointer; 
+            position: relative;
+            z-index: 2;
+            width: 50px;
+        }
+        .likert-option input { 
+            cursor: pointer; 
+            margin: 0 0 8px 0; 
+            transform: scale(1.3); 
+            background: white;
+        }
+        .likert-option span { font-size: 13px; font-weight: 600; color: #4a5568; }
+        .likert-labels { display: flex; justify-content: space-between; margin-top: 8px; padding: 0 5px; }
+        .likert-label { font-size: 12px; color: #718096; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
@@ -101,22 +162,26 @@
     </div>
 
     <div id="survey-step" class="hidden">
-        <h2>Abschließende Fragen</h2>
-        <p>Bitte beantworten Sie die folgenden Fragen, um die Studie abzuschließen:</p>
+        <h2>Abschließende Befragung</h2>
+        <div class="survey-instruction">Bitte beantworten Sie die verbleibenden Fragen auf Basis Ihres Bauchgefühls.</div>
         
         <form id="quizForm" onsubmit="submitSurvey(event)">
             
             <div class="form-group">
                 <label for="perceived_price">3. Wie hoch war das erste Angebot, das Ihnen der Vertreter an der Tür gemacht hat?</label>
-                <input type="number" id="perceived_price" min="0" max="99999" required placeholder="z.B. 1500"> <strong>€</strong>
+                <div class="input-wrapper">
+                    <input type="text" id="perceived_price" class="input-euro-clean" required placeholder="z.B. 1.500">
+                    <span class="currency-symbol">€</span>
+                </div>
             </div>
 
-            <p><strong>4. Bitte geben Sie an, wie Sie die folgenden Aussagen zum Angebot und zur dargestellten Kaufsituation einschätzen.</strong></p>
+            <p style="font-weight: bold; font-size: 16px; margin-top: 40px; margin-bottom: 20px; color: #2c3e50;">
+                4. Bitte geben Sie an, wie Sie die folgenden Aussagen zum Angebot und zur dargestellten Kaufsituation einschätzen.
+            </p>
 
             <div class="form-group">
                 <label>a) Der erste Angebotspreis wirkte auf mich angemessen.</label>
-                <div class="likert-scale">
-                    <span class="likert-label">stimme gar nicht zu</span>
+                <div class="likert-container">
                     <div class="likert-options">
                         <label class="likert-option"><input type="radio" name="q4a" value="1" required><span>1</span></label>
                         <label class="likert-option"><input type="radio" name="q4a" value="2"><span>2</span></label>
@@ -124,187 +189,9 @@
                         <label class="likert-option"><input type="radio" name="q4a" value="4"><span>4</span></label>
                         <label class="likert-option"><input type="radio" name="q4a" value="5"><span>5</span></label>
                     </div>
-                    <span class="likert-label">stimme voll zu</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>b) Das finale Angebot von 849 € wirkte auf mich attraktiv.</label>
-                <div class="likert-scale">
-                    <span class="likert-label">stimme gar nicht zu</span>
-                    <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4b" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4b" value="5"><span>5</span></label>
+                    <div class="likert-labels">
+                        <span class="likert-label">stimme gar nicht zu</span>
+                        <span class="likert-label">stimme voll zu</span>
                     </div>
-                    <span class="likert-label">stimme voll zu</span>
                 </div>
             </div>
-
-            <div class="form-group">
-                <label>c) Das finale Angebot von 849 € wirkte wie ein Entgegenkommen bzw. Zugeständnis des Verkäufers.</label>
-                <div class="likert-scale">
-                    <span class="likert-label">stimme gar nicht zu</span>
-                    <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4c" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4c" value="5"><span>5</span></label>
-                    </div>
-                    <span class="likert-label">stimme voll zu</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>d) Das erste Angebot hat in mir Verärgerung ausgelöst und dazu geführt, dass ich auch das finale Angebot abgelehnt habe.</label>
-                <div class="likert-scale">
-                    <span class="likert-label">stimme gar nicht zu</span>
-                    <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4d" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4d" value="5"><span>5</span></label>
-                    </div>
-                    <span class="likert-label">stimme voll zu</span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>e) Das Szenario war für mich verständlich und nachvollziehbar.</label>
-                <div class="likert-scale">
-                    <span class="likert-label">stimme gar nicht zu</span>
-                    <div class="likert-options">
-                        <label class="likert-option"><input type="radio" name="q4e" value="1" required><span>1</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="2"><span>2</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="3"><span>3</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="4"><span>4</span></label>
-                        <label class="likert-option"><input type="radio" name="q4e" value="5"><span>5</span></label>
-                    </div>
-                    <span class="likert-label">stimme voll zu</span>
-                </div>
-            </div>
-
-            <button type="submit" class="btn-submit">Studie absenden</button>
-        </form>
-    </div>
-
-    <div id="step3" class="hidden">
-        <h2>Vielen Dank für Ihre Teilnahme!</h2>
-        <p>Ihre Antworten wurden erfolgreich und anonymisiert aufgezeichnet. Sie können dieses Fenster nun schließen.</p>
-    </div>
-</div>
-
-<script>
-    const urlParams = new URLSearchParams(window.location.search);
-    let treatmentPrice = parseInt(urlParams.get('t'));
-
-    if (!treatmentPrice) {
-        const rand = Math.random();
-        if (rand < 0.3333) {
-            treatmentPrice = 849;
-        } else if (rand < 0.6666) {
-            treatmentPrice = 1500;
-        } else {
-            const boomerangOptions = [6000, 8000, 10000];
-            const randomBoomerang = Math.floor(Math.random() * boomerangOptions.length);
-            treatmentPrice = boomerangOptions[randomBoomerang];
-        }
-    }
-
-    const validTreatments = [849, 1500, 6000, 8000, 10000];
-    if (!validTreatments.includes(treatmentPrice)) {
-        treatmentPrice = 1500; 
-    }
-
-    document.getElementById('first-price').innerText = treatmentPrice.toLocaleString('de-DE') + " €";
-
-    let experimentData = {
-        treatment: treatmentPrice,
-        decision1: null,
-        decision2: 'Nicht benötigt (Direkte Annahme)',
-        perceivedPrice: null,
-        q4a: null,
-        q4b: null,
-        q4c: null,
-        q4d: null,
-        q4e: null
-    };
-
-    function submitDecision(step, choice) {
-        if (step === 1) {
-            experimentData.decision1 = choice;
-            
-            if (choice === 'Annahme') {
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('survey-step').classList.remove('hidden');
-            } else {
-                if (treatmentPrice === 849) {
-                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Bedenken, aber Sie müssen wissen: Dieses exklusive Einstiegsangebot gilt wirklich nur heute, solange ich hier vor Ihrer Tür stehe. Sobald ich weitergehe, ist die Chance vorbei und Sie zahlen im Handel wieder den regulären Preis. Überlegen Sie gut – es bleibt bei den einmaligen <strong>849 €</strong> für das gesamte Paket. Nehmen Sie das Angebot an?“`;
-                } else {
-                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Ablehnung. Ich kann Ihnen entgegenkommen: Wenn Sie sich heute entscheiden, erhalten Sie das Gerät inklusive Zubehörpaket und persönlicher Einweisung für <strong>849 €</strong>.“`;
-                }
-                document.getElementById('step1').classList.add('hidden');
-                document.getElementById('step2').classList.remove('hidden');
-            }
-        } else if (step === 2) {
-            experimentData.decision2 = choice;
-            document.getElementById('step2').classList.add('hidden');
-            document.getElementById('survey-step').classList.remove('hidden');
-        }
-    }
-
-    function submitSurvey(event) {
-        event.preventDefault();
-
-        // Formulardaten speichern
-        experimentData.perceivedPrice = document.getElementById('perceived_price').value;
-        experimentData.q4a = document.querySelector('input[name="q4a"]:checked').value;
-        experimentData.q4b = document.querySelector('input[name="q4b"]:checked').value;
-        experimentData.q4c = document.querySelector('input[name="q4c"]:checked').value;
-        experimentData.q4d = document.querySelector('input[name="q4d"]:checked').value;
-        experimentData.q4e = document.querySelector('input[name="q4e"]:checked').value;
-
-        document.getElementById('survey-step').classList.add('hidden');
-        document.getElementById('step3').classList.remove('hidden');
-
-        saveData(experimentData);
-    }
-
-    function saveData(data) {
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYqa_Kd0i-DOhGvegHKL6mS9xjSdDJQ51tRGqYmKTqy29DCVky1qHOEd8w2mzDwS88/exec";
-
-        const payload = {
-            "Zeitstempel": new Date().toLocaleString('de-DE'),
-            "Treatment": data.treatment,
-            "Entscheidung_1": data.decision1,
-            "Entscheidung_2": data.decision2,
-            "Erinnerter_Preis": data.perceivedPrice,
-            "Aussage_A": data.q4a,
-            "Aussage_B": data.q4b,
-            "Aussage_C": data.q4c,
-            "Aussage_D": data.q4d,
-            "Aussage_E": data.q4e
-        };
-
-        fetch(GOOGLE_SCRIPT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        })
-        .then(() => {
-            console.log('Erfolgreich an Google Sheets gesendet!');
-        })
-        .catch(error => {
-            console.error('Fehler beim Senden an Google Sheets:', error);
-        });
-    }
-</script>
-</body>
-</html>
