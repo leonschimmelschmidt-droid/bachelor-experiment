@@ -1,3 +1,10 @@
+Abgemacht! Das ist die wissenschaftlich sauberste Entscheidung für deine Arbeit. Ab jetzt wird jeder der 6 Preise mit exakt derselben Wahrscheinlichkeit (ca. 16,6 %) ausgespielt, was dir die spätere Datenanalyse extrem erleichtern wird.
+
+Hier ist der komplette, finale Code für deine index.html auf GitHub. Er enthält die perfekte Gleichverteilung aller 6 Preise, die korrigierten Likert-Skalen mit schönem Abstand und das stabile Preisfeld.
+
+Ersetze einfach deine gesamte Datei hiermit:
+
+HTML
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -104,12 +111,11 @@
             z-index: 2;
             width: 40px;
         }
-        /* HIER IST DIE FIX: Nummern zentriert über dem Button platzieren mit Abstand */
         .likert-option span { 
             font-size: 15px; 
             font-weight: bold; 
             color: #2c3e50; 
-            margin-bottom: 15px; /* Gibt ordentlich Luft nach unten zum Button */
+            margin-bottom: 15px; 
             text-align: center;
             display: block;
             width: 100%;
@@ -286,19 +292,11 @@
     const urlParams = new URLSearchParams(window.location.search);
     let treatmentPrice = parseInt(urlParams.get('t'));
 
+    // DIE NEUE, SAUBERE GLEICHGEWICHTUNG (Jeder der 6 Preise hat exakt 16,6% Chance)
     if (!treatmentPrice) {
-        const rand = Math.random();
-        if (rand < 0.25) {
-            treatmentPrice = 849;
-        } else if (rand < 0.50) {
-            treatmentPrice = 1500;
-        } else if (rand < 0.75) {
-            treatmentPrice = 4000; 
-        } else {
-            const boomerangOptions = [6000, 8000, 10000];
-            const randomBoomerang = Math.floor(Math.random() * boomerangOptions.length);
-            treatmentPrice = boomerangOptions[randomBoomerang];
-        }
+        const allOptions = [849, 1500, 4000, 6000, 8000, 10000];
+        const randomIndex = Math.floor(Math.random() * allOptions.length);
+        treatmentPrice = allOptions[randomIndex];
     }
 
     const validTreatments = [849, 1500, 4000, 6000, 8000, 10000];
