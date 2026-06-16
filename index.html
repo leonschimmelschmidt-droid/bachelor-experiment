@@ -195,3 +195,201 @@
                     </div>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label>b) Das finale Angebot von 849 € wirkte auf mich attraktiv.</label>
+                <div class="likert-container">
+                    <div class="likert-options">
+                        <label class="likert-option"><input type="radio" name="q4b" value="1" required><span>1</span></label>
+                        <label class="likert-option"><input type="radio" name="q4b" value="2"><span>2</span></label>
+                        <label class="likert-option"><input type="radio" name="q4b" value="3"><span>3</span></label>
+                        <label class="likert-option"><input type="radio" name="q4b" value="4"><span>4</span></label>
+                        <label class="likert-option"><input type="radio" name="q4b" value="5"><span>5</span></label>
+                    </div>
+                    <div class="likert-labels">
+                        <span class="likert-label">stimme gar nicht zu</span>
+                        <span class="likert-label">stimme voll zu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>c) Das finale Angebot von 849 € wirkte wie ein Entgegenkommen bzw. Zugeständnis des Verkäufers.</label>
+                <div class="likert-container">
+                    <div class="likert-options">
+                        <label class="likert-option"><input type="radio" name="q4c" value="1" required><span>1</span></label>
+                        <label class="likert-option"><input type="radio" name="q4c" value="2"><span>2</span></label>
+                        <label class="likert-option"><input type="radio" name="q4c" value="3"><span>3</span></label>
+                        <label class="likert-option"><input type="radio" name="q4c" value="4"><span>4</span></label>
+                        <label class="likert-option"><input type="radio" name="q4c" value="5"><span>5</span></label>
+                    </div>
+                    <div class="likert-labels">
+                        <span class="likert-label">stimme gar nicht zu</span>
+                        <span class="likert-label">stimme voll zu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>d) Das erste Angebot hat in mir Verärgerung ausgelöst und dazu geführt, dass ich auch das finale Angebot abgelehnt habe.</label>
+                <div class="likert-container">
+                    <div class="likert-options">
+                        <label class="likert-option"><input type="radio" name="q4d" value="1" required><span>1</span></label>
+                        <label class="likert-option"><input type="radio" name="q4d" value="2"><span>2</span></label>
+                        <label class="likert-option"><input type="radio" name="q4d" value="3"><span>3</span></label>
+                        <label class="likert-option"><input type="radio" name="q4d" value="4"><span>4</span></label>
+                        <label class="likert-option"><input type="radio" name="q4d" value="5"><span>5</span></label>
+                    </div>
+                    <div class="likert-labels">
+                        <span class="likert-label">stimme gar nicht zu</span>
+                        <span class="likert-label">stimme voll zu</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>e) Das Szenario war für mich verständlich und nachvollziehbar.</label>
+                <div class="likert-container">
+                    <div class="likert-options">
+                        <label class="likert-option"><input type="radio" name="q4e" value="1" required><span>1</span></label>
+                        <label class="likert-option"><input type="radio" name="q4e" value="2"><span>2</span></label>
+                        <label class="likert-option"><input type="radio" name="q4e" value="3"><span>3</span></label>
+                        <label class="likert-option"><input type="radio" name="q4e" value="4"><span>4</span></label>
+                        <label class="likert-option"><input type="radio" name="q4e" value="5"><span>5</span></label>
+                    </div>
+                    <div class="likert-labels">
+                        <span class="likert-label">stimme gar nicht zu</span>
+                        <span class="likert-label">stimme voll zu</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit">Befragung beenden & Daten absenden</button>
+        </form>
+    </div>
+
+    <div id="step3" class="hidden">
+        <h2>Vielen Dank für Ihre Teilnahme!</h2>
+        <p>Ihre Antworten wurden erfolgreich und anonymisiert aufgezeichnet. Sie können dieses Fenster nun schließen.</p>
+    </div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let treatmentPrice = parseInt(urlParams.get('t'));
+
+    // FALLS KEIN TREATMENT IN DER URL STEHT -> AUTOMATISCH WÜRFELN (Gleichverteilt auf 4 Gruppen)
+    if (!treatmentPrice) {
+        const rand = Math.random();
+        if (rand < 0.25) {
+            treatmentPrice = 849;
+        } else if (rand < 0.50) {
+            treatmentPrice = 1500;
+        } else if (rand < 0.75) {
+            treatmentPrice = 4000; // NEUES TREATMENT MIT DRIN
+        } else {
+            const boomerangOptions = [6000, 8000, 10000];
+            const randomBoomerang = Math.floor(Math.random() * boomerangOptions.length);
+            treatmentPrice = boomerangOptions[randomBoomerang];
+        }
+    }
+
+    // Zur Sicherheit validieren inklusive der 4000er Option
+    const validTreatments = [849, 1500, 4000, 6000, 8000, 10000];
+    if (!validTreatments.includes(treatmentPrice)) {
+        treatmentPrice = 1500; 
+    }
+
+    // Preis anzeigen
+    document.getElementById('first-price').innerText = treatmentPrice.toLocaleString('de-DE') + " €";
+
+    let experimentData = {
+        treatment: treatmentPrice,
+        decision1: null,
+        decision2: 'Nicht benötigt (Direkte Annahme)',
+        perceivedPrice: null,
+        q4a: null,
+        q4b: null,
+        q4c: null,
+        q4d: null,
+        q4e: null
+    };
+
+    function submitDecision(step, choice) {
+        if (step === 1) {
+            experimentData.decision1 = choice;
+            
+            if (choice === 'Annahme') {
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('survey-step').classList.remove('hidden');
+            } else {
+                if (treatmentPrice === 849) {
+                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Bedenken, aber Sie müssen wissen: Dieses exklusive Einstiegsangebot gilt wirklich nur heute, solange ich hier vor Ihrer Tür stehe. Sobald ich weitergehe, ist die Chance vorbei und Sie zahlen im Handel wieder den regulären Preis. Überlegen Sie gut – es bleibt bei den einmaligen <strong>849 €</strong> für das gesamte Paket. Nehmen Sie das Angebot an?“`;
+                } else {
+                    document.getElementById('seller-text').innerHTML = `„Ich verstehe Ihre Ablehnung. Ich kann Ihnen entgegenkommen: Wenn Sie sich heute entscheiden, erhalten Sie das Gerät inklusive Zubehörpaket und persönlicher Einweisung für <strong>849 €</strong>.“`;
+                }
+                document.getElementById('step1').classList.add('hidden');
+                document.getElementById('step2').classList.remove('hidden');
+            }
+        } else if (step === 2) {
+            experimentData.decision2 = choice;
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('survey-step').classList.remove('hidden');
+        }
+    }
+
+    function submitSurvey(event) {
+        event.preventDefault();
+
+        // PUNKT-REINIGUNG: Tausenderpunkte und Kommas radikal entfernen, damit Sheets nur reine Zahlen bekommt
+        let rawPriceInput = document.getElementById('perceived_price').value;
+        // Entfernt alles, was keine Ziffer ist
+        let cleanPrice = rawPriceInput.replace(/\D/g, ''); 
+
+        experimentData.perceivedPrice = cleanPrice;
+        experimentData.q4a = document.querySelector('input[name="q4a"]:checked').value;
+        experimentData.q4b = document.querySelector('input[name="q4b"]:checked').value;
+        experimentData.q4c = document.querySelector('input[name="q4c"]:checked').value;
+        experimentData.q4d = document.querySelector('input[name="q4d"]:checked').value;
+        experimentData.q4e = document.querySelector('input[name="q4e"]:checked').value;
+
+        document.getElementById('survey-step').classList.add('hidden');
+        document.getElementById('step3').classList.remove('hidden');
+
+        saveData(experimentData);
+    }
+
+    function saveData(data) {
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyYqa_Kd0i-DOhGvegHKL6mS9xjSdDJQ51tRGqYmKTqy29DCVky1qHOEd8w2mzDwS88/exec";
+
+        const payload = {
+            "Zeitstempel": new Date().toLocaleString('de-DE'),
+            "Treatment": data.treatment,
+            "Entscheidung_1": data.decision1,
+            "Entscheidung_2": data.decision2,
+            "Erinnerter_Preis": data.perceivedPrice,
+            "Aussage_A": data.q4a,
+            "Aussage_B": data.q4b,
+            "Aussage_C": data.q4c,
+            "Aussage_D": data.q4d,
+            "Aussage_E": data.q4e
+        };
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(() => {
+            console.log('Erfolgreich an Google Sheets gesendet!');
+        })
+        .catch(error => {
+            console.error('Fehler beim Senden an Google Sheets:', error);
+        });
+    }
+</script>
+</body>
+</html>
