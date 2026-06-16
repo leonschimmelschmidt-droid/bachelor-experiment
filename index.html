@@ -110,7 +110,7 @@
             font-weight: bold; 
             color: #2c3e50; 
             order: 1;
-            margin-bottom: 12px; /* Entzerrung: Gibt der Zahl Platz nach unten */
+            margin-bottom: 12px; /* Schafft vertikalen Platz zwischen Nummer und Button */
         }
         .likert-option input { 
             cursor: pointer; 
@@ -177,7 +177,7 @@
             <div class="form-group">
                 <label for="perceived_price">3. Wie hoch war das erste Angebot, das Ihnen der Vertreter an der Tür gemacht hat?</label>
                 <div class="input-wrapper">
-                    <input type="text" id="perceived_price" class="input-euro-clean" required placeholder="z.B. 1500" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    <input type="text" id="perceived_price" class="input-euro-clean" required placeholder="z.B. 1.500">
                     <span class="currency-symbol">€</span>
                 </div>
             </div>
@@ -345,6 +345,7 @@
     function submitSurvey(event) {
         event.preventDefault();
 
+        // Bereinigt Punkte und Kommas erst BEIM Absenden, damit Google Sheets saubere Zahlen kriegt
         let rawPriceInput = document.getElementById('perceived_price').value;
         let cleanPrice = rawPriceInput.replace(/\D/g, ''); 
 
