@@ -68,7 +68,8 @@
             transition: border-color 0.2s;
         }
         .input-euro-clean:focus { border-color: #3498db; outline: none; }
-        .currency-symbol { font-size: 18px; font-weight: bold; color: #7f8c8d; }
+        /* GEÄNDERT: Color steht jetzt auf #000 für tiefes Schwarz */
+        .currency-symbol { font-size: 18px; font-weight: bold; color: #000; }
         
         /* Modernes Likert-Skala Design (Row-basiert) */
         .likert-container {
@@ -177,7 +178,7 @@
             <div class="form-group">
                 <label for="perceived_price">1. Wie hoch war das erste Angebot, das Ihnen der Vertreter an der Tür gemacht hat?</label>
                 <div class="input-wrapper">
-                    <input type="text" id="perceived_price" class="input-euro-clean">
+                    <input type="text" id="perceived_price" class="input-euro-clean" required placeholder="z.B. 1.500">
                     <span class="currency-symbol">€</span>
                 </div>
             </div>
@@ -285,7 +286,6 @@
     const urlParams = new URLSearchParams(window.location.search);
     let treatmentPrice = parseInt(urlParams.get('t'));
 
-    // DIE NEUE, SAUBERE GLEICHGEWICHTUNG (Jeder der 6 Preise hat exakt 16,6% Chance)
     if (!treatmentPrice) {
         const allOptions = [849, 1500, 4000, 6000, 8000, 10000];
         const randomIndex = Math.floor(Math.random() * allOptions.length);
