@@ -176,7 +176,7 @@ fig.tight_layout()
 save(fig, "Abbildung_7_h1_bewertungsexperiment")
 
 # ===================================================================================
-# Abbildung 8: H2 - Indirekte Effekte im Preisexperiment (Forest Plot)
+# Abbildung 9: H2 - Indirekte Effekte im Preisexperiment (Forest Plot)
 # ===================================================================================
 # Wichtig: hier "treat_rows" (ohne Kontrollbedingung, N=195) verwenden, nicht
 # "final" (N=246) - die Kontrollbedingung (849 EUR) ist kein Punkt auf der
@@ -238,7 +238,7 @@ fig.tight_layout()
 save(fig, "Abbildung_8_h2_indirekte_effekte")
 
 # ===================================================================================
-# Abbildung 9: H3 - Mediationsmodell Bewertungsexperiment (Pfaddiagramm)
+# Abbildung 10: H3 - Mediationsmodell Bewertungsexperiment (Pfaddiagramm)
 # ===================================================================================
 M_h3 = np.array([to_float(r["Boomerang_Variable"]) for r in final2])
 res_a3 = ols_with_inference(ford_c.reshape(-1, 1), M_h3)
@@ -277,7 +277,7 @@ fig.tight_layout()
 save(fig, "Abbildung_9_h3_mediationsmodell")
 
 # ===================================================================================
-# Abbildung 10: H4 - Fairness -> Reaktanz (Streudiagramm mit Regressionsgerade)
+# Abbildung 11: H4 - Fairness -> Reaktanz (Streudiagramm mit Regressionsgerade)
 # ===================================================================================
 fairness = np.array([to_float(r["Wahrgenommene_Fairness"]) for r in final2])
 reaktanz = np.array([to_float(r["Boomerang_Variable"]) for r in final2])
