@@ -1,24 +1,3 @@
-"""
-H4-Test: Bewertungsexperiment - Wahrgenommene Fairness -> Reaktanz
-Plus die in Abschnitt 3.3.3 versprochene Trennschaerfe-Pruefung (Item 5 vs. Item 6).
-
-H4: "Im Bewertungsexperiment gilt: je unfairer die Erstforderung wahrgenommen
-     wird, desto staerker ist die dadurch ausgeloeste Reaktanz."
-
-Modell (einfache OLS-Regression):
-  X = Wahrgenommene_Fairness   (Item 6, hoeher = fairer)
-  Y = Boomerang_Variable       (Reaktanz-Komposit aus Item 4 + invertiertem Item 5)
-
-Erwartung laut H4: NEGATIVER Zusammenhang (mehr Fairness -> weniger Reaktanz).
-
-Trennschaerfe-Pruefung Item 5 (Angemessenheit_invertiert) vs. Item 6
-(Wahrgenommene_Fairness): beide erfassen konzeptuell verwandte, aber nicht
-identische Konstrukte (Angemessenheit der Erstforderung vs. Fairness des
-Verfahrens/der Forderung). Korrelation sollte moderat sein - hoch genug fuer
-inhaltliche Naehe, aber klar unter dem ueblichen Schwellenwert fuer
-Redundanz (r > .85, vgl. Diskriminanzvaliditaet).
-"""
-
 import csv
 import numpy as np
 import os
@@ -72,12 +51,7 @@ else:
     verdict = "eher schwach - Items erfassen weitgehend getrennte Konstrukte"
 print(f"-> Einordnung: {verdict}")
 
-# Zusatz: haelt Fairness als Praediktor stand, wenn Item 5 (Angemessenheit_invertiert)
-# separat kontrolliert wird? Zeigt, ob Fairness einen EIGENEN Beitrag zur Reaktanz
-# leistet, der nicht nur die (invertierte) Angemessenheitswahrnehmung widerspiegelt.
-# Reaktanz besteht per Definition aus Veraergerung + Angemessenheit_invertiert, daher
-# wird hier NICHT Boomerang_Variable, sondern nur Veraergerung als Y verwendet, um
-# Teil-Ganzes-Konfundierung zu vermeiden.
+
 veraergerung = np.array([to_float(r_["Veraergerung"]) for r_ in final])
 print("\n" + "=" * 70)
 print("Ergaenzung: Fairness + Item 5 -> Veraergerung (Item 4, um Teil-Ganzes-")
