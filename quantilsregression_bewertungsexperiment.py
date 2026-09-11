@@ -1,30 +1,3 @@
-"""
-Quantilsregression, Bewertungsexperiment: Ergaenzung zur Streuungsanalyse in
-Abschnitt 4.2 (Levene-Test, vgl. levene_streuung_bewertungsexperiment.py).
-
-Der Levene-Test zeigt, dass die Streuung der vergebenen Punktzahl mit der
-Forderungshoehe waechst, aber nicht, in welche Richtung sich die Raender der
-Verteilung bewegen. Die Quantilsregression schaetzt separate Steigungen fuer
-verschiedene Quantile der Punktzahl (statt nur fuer den Mittelwert/Median) und
-kann damit direkt zeigen, ob niedrige und hohe Quantile mit steigender
-Forderung auseinanderlaufen (Divergenz), statt sich nur gemeinsam zu
-verschieben.
-
-Implementierung: Exakte Quantilsregression (Koenker & Bassett, 1978) ueber
-lineare Programmierung (scipy.optimize.linprog, HiGHS-Solver), da statsmodels
-in dieser Sandbox nicht verfuegbar ist (vgl. regression_utils.py). In VS Code
-mit installiertem statsmodels laesst sich derselbe Test 1:1 nachbauen:
-    import statsmodels.formula.api as smf
-    mod = smf.quantreg('Final_vergebene_Punktzahl ~ Forderung_c', df)
-    mod.fit(q=tau).summary()
-
-Standardfehler/KI ueber nichtparametrisches Bootstrap (fallweise Resampling).
-Alle Quantile werden je Bootstrap-Replikation aus denselben resampelten
-Daten geschaetzt (statt getrennter Resamples je Quantil), damit auch die
-Differenz zwischen hohem und niedrigem Quantil korrekt gepaart getestet
-werden kann.
-"""
-
 import csv
 import time
 import numpy as np
