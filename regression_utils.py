@@ -1,11 +1,7 @@
 """
-Gemeinsame Regressions- und Mediations-Hilfsfunktionen (Ersatz fuer statsmodels /
-SPSS PROCESS, die in dieser Sandbox nicht verfuegbar sind).
+Gemeinsame Regressions- und Mediations-Hilfsfunktionen.
 
 Wird von h1_analysis.py, h2_analysis.py, h3_analysis.py, h4_analysis.py genutzt.
-In VS Code (wo statsmodels i.d.R. verfuegbar ist) lassen sich alle Modelle 1:1
-als smf.ols(...) / smf.logit(...) nachbauen - die Koeffizienten wurden gegen
-sklearn gegengeprueft und stimmen exakt ueberein.
 """
 
 import os
