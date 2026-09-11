@@ -1,24 +1,3 @@
-"""
-Ergaenzende Mediationsanalyse H2, allein mit Item 2a (Angemessenheit_invertiert)
-statt der kombinierten Boomerang-Variable (angekuendigt in 3.2.3, bisher nicht
-berichtet):
-
-"Die Mediationsanalyse wird ergaenzend allein mit Item 2a berichtet."
-
-Hintergrund: Item 2d ist als doppellaeufiges Item (Double-Barreled) kritisiert,
-weil es emotionales Erleben und die spaetere Ablehnung selbst vermengt (vgl.
-3.2.3). Die Boomerang-Variable (M3 im Hauptmodell) besteht aus Item 2a
-(invertiert) UND Item 2d und koennte daher den beschriebenen Messfehler
-teilweise erben. Dieses Zusatzmodell ersetzt M3 durch Item 2a allein
-(Angemessenheit_invertiert), um zu pruefen, ob der Reaktanzpfad auch ohne
-Item 2d bestehen bleibt.
-
-Modell identisch zu h2_analysis.py, nur M3 ausgetauscht:
-  M1 = Wahrnehmungskontrast (unveraendert)
-  M2 = Konzession (unveraendert)
-  M3'= Angemessenheit_invertiert (Item 2a allein, statt Boomerang_Variable)
-"""
-
 import csv
 import numpy as np
 import os
