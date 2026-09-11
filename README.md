@@ -6,10 +6,6 @@ nach den in Abschnitt 3.2.3/3.3.3/3.4 des Papers definierten Ausschlusskriterien
 
 ## Setup
 
-```bash
-pip install -r requirements.txt
-```
-
 Alle Modelle (OLS, logistische Regression per
 Newton-Raphson/IRLS, Bootstrap-Mediation) sind in `regression_utils.py` von Hand
 mit NumPy/SciPy implementiert und wurden gegen `sklearn` gegengeprüft (identische
