@@ -1,14 +1,3 @@
-"""
-Abbildung (neu): Verteilung der vergebenen Punktzahl je Bedingung,
-Bewertungsexperiment - Begleitgrafik zur Streuungsanalyse in Abschnitt 4.2
-(Levene-Test, vgl. levene_streuung_bewertungsexperiment.py).
-
-Boxplot je Bedingung (Median, IQR, Whisker) mit ueberlagerten, leicht
-gejitterten Einzelfaellen, damit sowohl die Zusammenfassung als auch die
-tatsaechliche Streuung/Randbesetzung sichtbar wird. Stil konsistent mit
-create_figures.py (gedeckte Farben, serifenlose Anmerkungen, 300dpi).
-"""
-
 import os
 import csv
 import numpy as np
