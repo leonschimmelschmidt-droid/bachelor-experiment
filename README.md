@@ -32,7 +32,7 @@ Fairness, mit und ohne Kontrolle fuer die Forderungshoehe.
 - `levene-streuung-bewertungsexperiment.py` - Streuungsanalyse (Levene-Test), Bewertungsexperiment: Ergaenzung zu H1
 - `manipulationscheck_angemessenheit.py` - Manipulationscheck: Wahrgenommene Angemessenheit (Item 2a) ~ Erstforderung,
 Preisexperiment
-- `manipulationscheck_bedrohung.py - Manipulationscheck: Wahrgenommene Bedrohung (Items 1-3) ~ Forderung
+- `manipulationscheck_bedrohung.py` - Manipulationscheck: Wahrgenommene Bedrohung (Items 1-3) ~ Forderung
 Bewertungsexperiment.
 - `quantile_trend_bewertungsexperiment.py`- Empirische Quantile je Bedingung + Cochran-Armitage-Trendtest,
 Bewertungsexperiment: ersetzt quantilsregression_bewertungsexperiment.py als
