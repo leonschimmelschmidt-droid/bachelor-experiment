@@ -1,25 +1,7 @@
 """
-Robustheitscheck (angekuendigt in Abschnitt 3.2.3): H1-Kurve im Preisexperiment,
+Robustheitscheck: H1-Kurve im Preisexperiment,
 Direktannahmen der Erstforderung in den Treatmentbedingungen zusaetzlich als
 Annahme (Codierung = 1) gewertet, statt sie strukturell auszuschliessen.
-
-Hintergrund: In den Treatmentbedingungen (1.500 bis 10.000 Euro) haben 7
-Probanden die ueberhoehte Erstforderung direkt angenommen und nie ueber die
-Zielforderung (849 Euro) entschieden. Sie werden in der Hauptanalyse (h1_analysis.py)
-strukturell ausgeschlossen, da fuer sie kein Wert auf der abhaengigen Variablen
-vorliegt (vgl. Tabelle 5, Spalte "davon strukturell ausgeschlossen").
-
-Fuer den Robustheitscheck werden diese Faelle stattdessen als Annahme (Codierung=1)
-gewertet - eine konservative Annahme zur Richtung des Bias: Wer bereits einen
-deutlich hoeheren Betrag akzeptiert hat, haette der niedrigeren Zielforderung
-mutmasslich ebenfalls zugestimmt.
-
-Die unabhaengigen Manipulationschecks (Preis-Erinnerung, Szenarioverstaendnis)
-bleiben unveraendert in Kraft: von den 7 Direktannahmen bestehen nur 4 beide
-Checks. Die uebrigen 3 bleiben ausgeschlossen, da sie unabhaengig von der
-Direktannahme-Frage als unaufmerksame Bearbeitung gelten (vgl. Abschnitt 3.2.3).
-
-Ergebnis: N = 195 + 4 = 199 (statt 195) fuer die 5 Treatmentbedingungen.
 """
 
 import csv
