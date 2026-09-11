@@ -10,15 +10,6 @@ nicht eindeutig (das Optimierungsproblem ist stueckweise linear/flach), und
 die Standardfehler (egal ob asymptotisch oder per Bootstrap-Wald) werden
 instabil. Empirische Quantile je Gruppe und ein Trendtest auf Anteile hängen
 an keinem Solver und sind robuster und transparenter.
-
-Ergebnis (bereits unabhaengig von Hand nachgerechnet und exakt bestaetigt):
-  Empirische Quantile (10/25/50/75/90) je Bedingung:
-    9 Punkte:  7 / 8 / 8 /  9 /  9
-    11 Punkte: 6 / 7 / 9 / 10 / 10
-    13 Punkte: 6 / 7 / 9 / 10 / 11
-    15 Punkte: 6 / 7 / 9 / 10 / 12
-  Cochran-Armitage-Trendtest, Anteil >= 12 Punkte: z = 3.567, p < .001
-  Cochran-Armitage-Trendtest, Anteil <= 6 Punkte:  z = 1.168, p = .243
 """
 
 import csv
