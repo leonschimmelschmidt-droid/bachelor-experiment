@@ -74,7 +74,7 @@ def main(pfad: str = PFAD) -> None:
     print(f"Mittelwert Render (Referenz):  {render:.2f}")
     print(f"Spanne gesamt nachher:         {df[SPALTE].min():.0f} bis {df[SPALTE].max():.0f}")
     print(f"\nDatei geschrieben: {pfad}")
-    print("Anschliessend die Auswertungsskripte erneut ausfuehren.")
+    
 
 
 if __name__ == "__main__":
