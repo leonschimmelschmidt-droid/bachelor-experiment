@@ -39,6 +39,10 @@ levene_streuung_bewertungsexperiment.py).
 - `robustheitscheck_direktannahmen.py` - Robustheitscheck: H1-Kurve im Preisexperiment,
 Direktannahmen der Erstforderung in den Treatmentbedingungen zusaetzlich als
 Annahme (Codierung = 1) gewertet, statt sie strukturell auszuschliessen.
+- `korrektur_sosci_punktzahl.py` - Einmalige Korrektur der Bewertungsvariable aus der
+SoSci-Phase (vgl. Abschnitt "Korrektur der SoSci-Punktzahlen"). Bereits auf die
+im Repository liegende Datendatei angewendet; das Skript bricht bei erneuter
+Ausfuehrung ohne Aenderung ab.
 
 
 - `create_figures.py` — erzeugt Abbildung 6, 7, 9, 10 und 11 (siehe unten) als PNG (300dpi)
@@ -55,7 +59,8 @@ Abbildungen 1-5 im Paper an):
   nicht massstabsgetreu, sondern durch eine gestrichelte Trennlinie separiert
   dargestellt, da sie nicht Teil der Kurve ist.
 - **Abbildung 7** — Bewertungsexperiment: vergebene Punktzahl je Forderung
-  mit angepasster quadratischer Kurve (H1).
+  mit angepasster quadratischer Kurve (H1). Der Scheitelpunkt der Kurve liegt
+  bei einer Forderung von 13,4 Punkten.
 - **Abbildung 9** — Preisexperiment: Forest-Plot der drei indirekten Effekte
   aus dem Mehrfachmediatormodell (H2), mit 95%-BC-Bootstrap-KI.
 - **Abbildung 10** — Bewertungsexperiment: Pfaddiagramm des Mediationsmodells
@@ -78,6 +83,35 @@ das Dezimalkomma:
 ```python
 pd.read_csv("data/Auswertung_Preisexperiment.csv", sep=";", decimal=",")
 ```
+
+### Korrektur der SoSci-Punktzahlen
+
+Die Frage NV08 des Bewertungsexperiments ("Welche endgültige Punktzahl würden Sie dem
+Studierenden geben?") ist in SoSci Survey als Auswahlfrage angelegt. SoSci speichert bei
+Auswahlfragen die **Position der gewählten Antwortoption** und nicht den in der Option
+angezeigten Wert. Die Optionsliste ist absteigend angeordnet, von `[01] = 15 Punkte` bis
+`[16] = 0 Punkte`. Daraus folgt:
+
+```
+vergebene Punktzahl = 16 − Positionscode
+```
+
+Das ursprüngliche Import-Skript hat den Positionscode unverändert als Rohwert übernommen.
+Betroffen waren ausschließlich die 138 Fälle mit `Datenquelle == "sosci_import"`. Die
+250 Fälle der Render-Phase stammen aus einer eigens entwickelten Weberhebung, die den
+Punktwert direkt speichert, und waren nicht betroffen. Das **Preisexperiment ist nicht
+betroffen**, da dessen Daten ausschließlich aus der Render-Phase stammen.
+
+Vor der Korrektur lagen die Mittelwerte beider Erhebungsphasen um mehr als drei Punkte
+auseinander (6,35 gegenüber 9,75), und der Zusammenhang zwischen Forderungshöhe und
+vergebener Punktzahl hatte in beiden Phasen entgegengesetzte Vorzeichen. Nach der
+Korrektur stimmen die Mittelwerte nahezu überein (9,65 gegenüber 9,75), und beide Phasen
+zeigen denselben Zusammenhang.
+
+Die im Repository liegende Datendatei ist bereits korrigiert. Die Analysestichprobe bleibt
+unverändert bei 295 Fällen, da die Manipulationschecks die Bewertungsvariable nicht
+heranziehen. Die Korrektur ist in `korrektur_sosci_punktzahl.py` dokumentiert und
+nachvollziehbar; das Skript bricht bei erneuter Ausführung ohne Änderung ab.
 
 ### Wie die Analysestichproben entstehen
 
@@ -137,12 +171,12 @@ meinen dieselbe Variable.
 |---|---|---|---|
 | `Fallnummer` | Laufende Fallnummer | 1–388 | Beim Zusammenführen beider Phasen vergeben |
 | `Zeitpunkt` | Zeitstempel der Teilnahme | Millisekunden seit 01.01.1970 | Im Export auf fünf signifikante Stellen gerundet, nicht ausgewertet |
-| `Datenquelle` | Erhebungsphase | `sosci_import` (138), `render` (250) | Plattformwechsel, im Paper als Limitation diskutiert |
+| `Datenquelle` | Erhebungsphase | `sosci_import` (138), `render` (250) | Plattformwechsel, im Paper als Limitation diskutiert. Maßgeblich für die Rückrechnung der Punktzahl (siehe oben) |
 | `Fragebogenversion` | Fragebogenversion | `sosci_nv_2026`, `render_v2` | Direkt erhoben |
 | `SoSci-Fallnummer` | Ursprüngliche Fallnummer der SoSci-Phase | Ganzzahl, leer bei `render` | Rückverfolgbarkeit |
 | `Treatment_Code` | Codierte Treatmentstufe | 1 = 9, 2 = 11, 3 = 13, 4 = 15 Punkte | Zufällige Zuweisung |
 | `Forderung_des_Studierenden` | Geforderte Punktzahl | 9, 11, 13, 15 (9 = Kontrolle) | Unabhängige Variable |
-| `Final_vergebene_Punktzahl` | **Abhängige Variable:** vergebene Punktzahl | Skala 0–15, beobachtet 1–15 | Direkt erhoben |
+| `Final_vergebene_Punktzahl` | **Abhängige Variable:** vergebene Punktzahl | Skala 0–15, beobachtet 5–15 | Direkt erhoben. Für die Fälle der SoSci-Phase zurückgerechnet als `16 - Positionscode` der Antwortoption (Frage NV08), siehe Abschnitt „Korrektur der SoSci-Punktzahlen" |
 | `Antwort_Rollenkontrolle` | Erinnerte eigene Rolle | `professor`, `student`, `external`, `none` | Korrekt ist `professor` |
 | `Erinnerte_Forderung` | Erinnerte geforderte Punktzahl | Offene Eingabe | Grundlage des Forderungschecks |
 | `Wahrgenommener_Druck` | Item 1: Die Forderung setzte mich unter Druck | 1–5 | Bestandteil des Bedrohungsindex |
@@ -168,5 +202,14 @@ Aus den Rohdaten lassen sich die zentralen Kennzahlen des Papers direkt reproduz
 | Strukturell ausgeschlossen | 7 | – |
 | An Checks gescheitert | 103 | 93 |
 | Finale Analysestichprobe | 246 | 295 |
+
+Für das Bewertungsexperiment lässt sich zusätzlich prüfen, ob die Datendatei die korrigierte
+Fassung ist:
+
+| Kennzahl | Erwartet |
+|---|---|
+| Spanne `Final_vergebene_Punktzahl` | 5 bis 15 |
+| Mittelwert der SoSci-Phase | 9,65 |
+| Mittelwert der Render-Phase | 9,75 |
 
 
