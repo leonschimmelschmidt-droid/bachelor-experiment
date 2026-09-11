@@ -10,13 +10,10 @@ nach den in Abschnitt 3.2.3/3.3.3/3.4 des Papers definierten Ausschlusskriterien
 pip install -r requirements.txt
 ```
 
-Kein `statsmodels` nötig — alle Modelle (OLS, logistische Regression per
+Alle Modelle (OLS, logistische Regression per
 Newton-Raphson/IRLS, Bootstrap-Mediation) sind in `regression_utils.py` von Hand
 mit NumPy/SciPy implementiert und wurden gegen `sklearn` gegengeprüft (identische
-Koeffizienten). Falls du `statsmodels` selbst installiert hast, kannst du jedes
-Modell 1:1 nachbauen — die jeweilige Formel steht als Kommentar im Docstring
-jedes Skripts (z. B. `smf.logit("Codierung ~ Treatment + Treatment2", data=df)`).
-
+Koeffizienten). 
 ## Skripte
 
 - `h1_analysis.py` — H1: umgekehrt U-förmiger Zusammenhang (quadratische
@@ -26,7 +23,7 @@ jedes Skripts (z. B. `smf.logit("Codierung ~ Treatment + Treatment2", data=df)`)
   Boomerang-Variable), Bootstrap-KI (5000 Replikationen, BC).
 - `h3_analysis.py` — H3: Mediationsanalyse Bewertungsexperiment (Forderung →
   Reaktanz/Boomerang-Variable → vergebene Punktzahl), Bootstrap-KI.
-- `h4_analysis.py` — H4: Fairness → Reaktanz, plus die in 3.3.3 versprochene
+- `h4_analysis.py` — H4: Fairness → Reaktanz, plus die in 3.3.3 angekündigte
   Trennschärfe-Prüfung Item 5 (Angemessenheit_invertiert) vs. Item 6 (Fairness).
 
 - `create_figures.py` — erzeugt Abbildung 6-10 (siehe unten) als PNG (300dpi)
