@@ -3,11 +3,7 @@ H4-Robustheitspruefung: Regression der Boomerang-Variable auf die wahrgenommene
 Fairness, mit und ohne Kontrolle fuer die Forderungshoehe.
 
 Hintergrund: Wahrgenommene Fairness und Reaktanz gehen beide auf die manipulierte
-Forderungshoehe zurueck. Der in Tabelle 16 berichtete Zusammenhang koennte deshalb
-teilweise darauf beruhen, dass beide Variablen von derselben Ursache getrieben
-werden. Modell 2 prueft das.
-
-Modell 1 repliziert Tabelle 16, Modell 2 liefert Tabelle 18.
+Forderungshoehe zurueck. 
 """
 
 import csv
