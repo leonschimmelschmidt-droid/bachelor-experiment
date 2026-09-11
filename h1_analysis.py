@@ -1,25 +1,3 @@
-"""
-H1-Test: Umgekehrt U-foermiger Zusammenhang zwischen Forderungshoehe und Ergebnis
-==================================================================================
-
-Preisexperiment:  binaere DV (Codierung: 1=Annahme, 0=Ablehnung Zielforderung)
-                   -> logistische Regression mit linearem + quadratischem Term
-Bewertungsexperiment: metrische DV (Final_vergebene_Punktzahl, 0-15)
-                   -> OLS-Regression mit linearem + quadratischem Term
-
-Kein statsmodels verfuegbar in dieser Umgebung (Paketindex blockt es) -> beide
-Modelle sind hier von Hand implementiert (Newton-Raphson fuer Logit, geschlossene
-Form fuer OLS), inkl. Standardfehlern, z/t-Werten und p-Werten. Wer lieber
-statsmodels nutzt (in VS Code meist verfuegbar), kann die Formeln 1:1 als
-"Codierung ~ Treatment + Treatment2" (smf.logit) bzw.
-"Punktzahl ~ Forderung + Forderung2" (smf.ols) uebernehmen - die Zahlen muessen
-uebereinstimmen.
-
-Datengrundlage: die bereinigten Analysestichproben aus 3.2.3/3.3.3/3.4
-  - Preisexperiment:      N = 246 (nach allen Ausschlusskriterien)
-  - Bewertungsexperiment: N = 295 (nach allen Ausschlusskriterien)
-"""
-
 import csv
 import numpy as np
 import os
@@ -37,7 +15,7 @@ def to_float(s):
 
 
 # ---------------------------------------------------------------------------
-# Manuelle Regressionsfunktionen (Ersatz fuer statsmodels)
+# Manuelle Regressionsfunktionen 
 # ---------------------------------------------------------------------------
 
 def ols_with_inference(X, y):
