@@ -1,25 +1,3 @@
-"""
-H3-Test: Mediationsanalyse Bewertungsexperiment (einfache Mediation, PROCESS
-Modell 4 mit EINEM Mediator), neu gerechnet auf Basis der aktuellen bereinigten
-Analysestichprobe (N = 295) nach den in 3.3.3/3.4 definierten Ausschlusskriterien.
-
-H3: "Im Bewertungsexperiment gilt: je staerker die wahrgenommene Reaktanz
-     gegenueber der Erstforderung ausgepraegt ist, desto niedriger faellt die
-     vergebene Punktzahl aus."
-
-Modell (rein metrisch, daher OLS auf beiden Pfaden):
-  X = Forderung_des_Studierenden   (Erstforderung, 9/11/13/15 Punkte)
-  M = Boomerang_Variable           (Reaktanz-Komposit = Mittelwert aus
-                                     Veraergerung [Item 4] und
-                                     Angemessenheit_invertiert [invertiertes Item 5])
-  Y = Final_vergebene_Punktzahl    (0-15 Punkte)
-
-Pfad a:  OLS  M ~ X
-Pfad b + c':  OLS  Y ~ X + M
-Indirekter Effekt = a * b, Inferenz ueber Bootstrap (5000 Replikationen,
-Bias-corrected 95%-KI nach Efron), analog zu H2 und zur alten Praesentation.
-"""
-
 import csv
 import numpy as np
 import os
