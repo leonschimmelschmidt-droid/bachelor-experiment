@@ -1,7 +1,4 @@
 """
-Kontroll-vs.-Treatment-Vergleich, Preisexperiment (angekuendigt in 3.1/3.2.3,
-bisher nicht berichtet).
-
 Frage: Bringt eine ueberhoehte Erstforderung mit anschliessender Preissenkung
 (Treatmentbedingungen, 1.500-10.000 Euro) ueberhaupt einen Zugewinn gegenueber
 der direkten Nennung der Zielforderung (Kontrollbedingung, 849 Euro)?
