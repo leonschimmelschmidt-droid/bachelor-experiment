@@ -269,9 +269,9 @@ ax.annotate("", xy=(4.1, 4.6), xytext=(1.7, 1.6), arrowprops=arrow_style)
 label_bg = dict(facecolor="white", edgecolor="none", pad=1.5)
 ax.text(2.6, 3.4, f"a = {de_num(a_h3)}***", fontsize=9, color=MAIN_COLOR, bbox=label_bg)
 ax.annotate("", xy=(8.1, 1.6), xytext=(5.9, 4.6), arrowprops=arrow_style)
-ax.text(6.9, 3.4, f"b = {de_num(b_h3)}**", fontsize=9, color=MAIN_COLOR, bbox=label_bg)
+ax.text(6.9, 3.4, f"b = {de_num(b_h3)}***", fontsize=9, color=MAIN_COLOR, bbox=label_bg)
 ax.annotate("", xy=(7.9, 1.0), xytext=(2.1, 1.0), arrowprops=arrow_style)
-ax.text(5, 0.55, f"c' (direkt) = {de_num(c_prime_h3)}***  |  c (total) = {de_num(c_h3)}**",
+ax.text(5, 0.55, f"c' (direkt) = {de_num(c_prime_h3)}***  |  c (total) = {de_num(c_h3)}***",
         ha="center", fontsize=9, color=FIT_COLOR)
 
 fig.tight_layout()
