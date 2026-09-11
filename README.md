@@ -26,15 +26,26 @@ Koeffizienten).
 - `h4_analysis.py` — H4: Fairness → Reaktanz, plus die in 3.3.3 angekündigte
   Trennschärfe-Prüfung Item 5 (Angemessenheit_invertiert) vs. Item 6 (Fairness).
 
-- `create_figures.py` — erzeugt Abbildung 6-10 (siehe unten) als PNG (300dpi)
-  und Vektor-PDF im Ordner `figures/`, direkt einsetzbar in Word.
+- `h4_kontrolle_forderungshoehe.py` - H4-Robustheitspruefung: Regression der Boomerang-Variable auf die wahrgenommene
+Fairness, mit und ohne Kontrolle fuer die Forderungshoehe.
+- `kontrollvergleich_preisexperiment.py` - Kontroll-vs.-Treatment-Vergleich, Preisexperiment
+- `levene-streuung-bewertungsexperiment.py` - Streuungsanalyse (Levene-Test), Bewertungsexperiment: Ergaenzung zu H1
+- `manipulationscheck_angemessenheit.py` - Manipulationscheck: Wahrgenommene Angemessenheit (Item 2a) ~ Erstforderung,
+Preisexperiment
+- `manipulationscheck_bedrohung.py - Manipulationscheck: Wahrgenommene Bedrohung (Items 1-3) ~ Forderung
+Bewertungsexperiment.
+- `quantile_trend_bewertungsexperiment.py`- Empirische Quantile je Bedingung + Cochran-Armitage-Trendtest,
+Bewertungsexperiment: ersetzt quantilsregression_bewertungsexperiment.py als
+Ergaenzung zur Streuungsanalyse in Abschnitt 4.2 (Levene-Test, vgl.
+levene_streuung_bewertungsexperiment.py).
+- `robustheitscheck_direktannahmen.py` - Robustheitscheck: H1-Kurve im Preisexperiment,
+Direktannahmen der Erstforderung in den Treatmentbedingungen zusaetzlich als
+Annahme (Codierung = 1) gewertet, statt sie strukturell auszuschliessen.
 
-Jedes Skript einfach direkt ausführen, z. B.:
 
-```bash
-python3 h1_analysis.py
-python3 create_figures.py
-```
+- `create_figures.py` — erzeugt Abbildung 6, 7, 9, 10 und 11 (siehe unten) als PNG (300dpi)
+  und Vektor-PDF im Ordner `figures/`.
+  
 
 ## Abbildungen
 
@@ -47,41 +58,17 @@ Abbildungen 1-5 im Paper an):
   dargestellt, da sie nicht Teil der Kurve ist.
 - **Abbildung 7** — Bewertungsexperiment: vergebene Punktzahl je Forderung
   mit angepasster quadratischer Kurve (H1).
-- **Abbildung 8** — Preisexperiment: Forest-Plot der drei indirekten Effekte
+- **Abbildung 9** — Preisexperiment: Forest-Plot der drei indirekten Effekte
   aus dem Mehrfachmediatormodell (H2), mit 95%-BC-Bootstrap-KI.
-- **Abbildung 9** — Bewertungsexperiment: Pfaddiagramm des Mediationsmodells
+- **Abbildung 10** — Bewertungsexperiment: Pfaddiagramm des Mediationsmodells
   (H3) mit a-, b-, c'- und c-Koeffizienten.
-- **Abbildung 10** — Bewertungsexperiment: Streudiagramm Fairness vs.
+- **Abbildung 11** — Bewertungsexperiment: Streudiagramm Fairness vs.
   Reaktanz mit Regressionsgerade (H4).
-
-Farben und Stil sind bewusst gedeckt gehalten (dezentes Blau/Rot, dünne
-Gitterlinien) und in Graustufen noch unterscheidbar (unterschiedliche
-Markerformen/Linienstile für Kontroll- vs. Treatmentpunkte). PNG für die
-Einbindung in Word, PDF als Vektor-Backup falls später Nachbearbeitung nötig
-ist (z. B. Beschriftungsgröße).
 
 ## Daten
 
 `data/Auswertung_Preisexperiment.csv` und `data/Auswertung_Bewertungsexperiment.csv`
 sind die finalen, bereits mit den Ausschluss-/Manipulationscheck-Spalten
-angereicherten Exporte (Snapshot vom 27.08.2026). Wenn du die CSVs später erneut
-aktualisierst, einfach hier ersetzen (Spaltennamen müssen gleich bleiben) — die
-Skripte filtern die Analysestichprobe selbst über die
-`Manipulationscheck_*`-Spalten, du musst also nicht vorher von Hand filtern.
+angereicherten Exporte.
 
-## Ergebnisse (Snapshot, siehe Chat für die volle Einordnung)
 
-- **H1**: In keinem der beiden Experimente ist der quadratische Term
-  signifikant → umgekehrt U-förmiger Verlauf statistisch nicht absicherbar.
-- **H2**: Boomerang-Variable (Abwärtsphase) vermittelt signifikant
-  (BC-KI schließt 0 nicht ein), Konzession (Aufwärtsphase) und Kontrasteffekt
-  nicht signifikant → H2 nur teilweise bestätigt, wie schon vor der
-  Datenbereinigung.
-- **H3**: Anders als in der alten (vor-bereinigten) Präsentation ist der
-  indirekte Effekt über die Reaktanz-Variable jetzt signifikant und
-  erwartungskonform negativ, wird aber vom positiven direkten Effekt
-  überkompensiert (inkonsistente Mediation/Suppression) — sauber im Text zu
-  erklären, nicht einfach als "signifikant" verkaufen.
-- **H4**: Deutlich stärkster Befund — Fairness sagt Reaktanz klar negativ
-  vorher (R²≈.38, p<.001). Item 5 und Item 6 korrelieren moderat (r≈-.66),
-  sind aber empirisch unterscheidbar (Trennschärfe gegeben).
