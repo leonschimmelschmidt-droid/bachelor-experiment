@@ -1,6 +1,6 @@
 # Kapitel-4-Auswertung: H1-H4 (VS Code)
 
-Diese vier Skripte prüfen die Hypothesen H1-H4 auf Basis der finalen, bereinigten
+Diese Skripte prüfen die Hypothesen H1-H4 auf Basis der finalen, bereinigten
 Analysestichproben (Preisexperiment N=246, Bewertungsexperiment N=295), exakt
 nach den in Abschnitt 3.2.3/3.3.3/3.4 des Papers definierten Ausschlusskriterien.
 
