@@ -1,35 +1,3 @@
-"""
-H2-Test: Mediationsanalyse Preisexperiment (PROCESS Modell 4 - paralleles
-Mehrfachmediatormodell), analog zur Abschlusspraesentation, aber neu gerechnet
-auf Basis der AKTUELLEN bereinigten Analysestichprobe (N = 246 nach den in
-3.2.3/3.4 definierten Ausschlusskriterien, davon N = 195 nach zusaetzlichem
-Ausschluss der Kontrollbedingung - vgl. Begruendung weiter unten und in H1).
-
-H2: "Im Preisexperiment wird die Aufwaertsphase dieses Verlaufs durch die
-     Wahrnehmung eines Entgegenkommens (Konzession) vermittelt, waehrend die
-     Abwaertsphase durch das Auftreten psychologischer Reaktanz (operationalisiert
-     als Boomerang-Variable) vermittelt wird."
-
-Modell:
-  X  = Treatment (Erstforderung in EUR)
-  M1 = Wahrnehmungskontrast   (Kontrasteffekt, exploratorisch/Kontrollmediator)
-  M2 = Konzession             (Aufwaertsphase-Mediator)
-  M3 = Boomerang_Variable     (Abwaertsphase-Mediator, = Mittelwert aus Reaktanz
-                                und Angemessenheit_invertiert)
-  Y  = Codierung (0/1, Annahme der Zielforderung)
-
-Pfad a_i:  OLS   M_i ~ X                     (einfache Regression je Mediator)
-Pfad b_i:  Logit Y ~ X + M1 + M2 + M3         (alle Mediatoren gleichzeitig, plus X)
-Indirekter Effekt_i = a_i * b_i
-Direkter Effekt c'  = Koeffizient von X im vollen Logit-Modell
-Totaler Effekt c    = Koeffizient von X im reinen Logit-Modell Y ~ X (ohne Mediatoren)
-
-Inferenz fuer die indirekten Effekte ueber Bootstrap (da Sobel-Test bei
-logistischem Pfad b ungueltig ist): 5000 Replikationen, Bias-corrected (BC)
-95%-Konfidenzintervall nach Efron - analog zum in der Praesentation verwendeten
-SPSS-PROCESS-Ansatz (dort: 1000 Replikationen, ebenfalls BC-KI).
-"""
-
 import csv
 import numpy as np
 import os
@@ -62,12 +30,6 @@ final_mit_kontrolle = [r for r in rows
          and r["Manipulationscheck_Validitaet"].strip() == "Ja"]
 print(f"Finale Analysestichprobe (inkl. Kontrollbedingung): N = {len(final_mit_kontrolle)} (Soll: 246)")
 
-# Die Kontrollbedingung (849 EUR) ist strukturell kein Punkt auf der
-# "Erstforderung"-Skala der Treatments (kein zweistufiges DITF-Verfahren, keine
-# Konzession moeglich, vgl. Abschnitt 3.1 und die gleiche Begruendung in H1/4.1).
-# Sie darf deshalb auch hier nicht als gewoehnlicher Wert von X = Treatment in
-# die Mediationsanalyse eingehen, sonst wird das X faelschlich mit einer nicht
-# vergleichbaren Bedingung vermischt. Ausschluss analog zu h1_analysis.py.
 final = [r for r in final_mit_kontrolle if r["Treatment"] != "849"]
 print(f"Finale Analysestichprobe (nur Treatmentbedingungen, wie H1): N = {len(final)} (Soll: 195)")
 
@@ -167,8 +129,7 @@ print(f"Totaler Effekt c (X -> Y, ohne Mediatoren): "
       f"{c_total:.4f} (p={total_res['p'][1]:.4f} {sig_stars(total_res['p'][1])})")
 
 # ---------------------------------------------------------------------------
-# Zusatz: Korrelationen zwischen den drei Mediatoren (wie in der alten
-# Praesentation als Diskriminanzpruefung genutzt)
+# Zusatz: Korrelationen zwischen den drei Mediatoren 
 # ---------------------------------------------------------------------------
 print("\n" + "=" * 70)
 print("Korrelationsmatrix der drei Mediatoren (zur Einordnung)")
