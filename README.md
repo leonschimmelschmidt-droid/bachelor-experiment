@@ -65,6 +65,8 @@ Abbildungen 1-5 im Paper an):
 - **Abbildung 11** — Bewertungsexperiment: Streudiagramm Fairness vs.
   Reaktanz mit Regressionsgerade (H4).
 
+`figure_streuung_bewertungsexperiment.py` erzeugt **Abbildung 8**
+
 ## Daten
 
 `data/Auswertung_Preisexperiment.csv` und `data/Auswertung_Bewertungsexperiment.csv`
