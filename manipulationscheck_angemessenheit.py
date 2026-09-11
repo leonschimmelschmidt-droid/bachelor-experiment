@@ -1,9 +1,5 @@
 """
-Manipulationscheck: Wahrgenommene Angemessenheit (Item 2a) ~ Erstforderung,
-Preisexperiment (angekuendigt in 3.2.2, bisher nicht berichtet).
-
-"Ob die wahrgenommene Angemessenheit ueber die Stufen hinweg tatsaechlich
-abnimmt, prueft das entsprechende Fragebogenitem (vgl. 3.2.3)."
+Manipulationscheck: Wahrgenommene Angemessenheit (Item 2a) 
 
 Verwendet dieselbe Treatmentstichprobe wie H1/H2 (ohne Kontrollbedingung,
 N = 195), da nur dort eine ueberhoehte Erstforderung ueberhaupt vorliegt, deren
