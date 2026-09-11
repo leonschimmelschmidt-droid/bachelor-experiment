@@ -68,9 +68,105 @@ Abbildungen 1-5 im Paper an):
 - **Abbildung 8** - Verteilung der vergebenen Punktzahl je Bedingung,
 Bewertungsexperiment - Begleitgrafik zur Streuungsanalyse.
 
-## Daten
+## Daten und Codebuch
 
-`data/Auswertung_Preisexperiment.csv` und `data/Auswertung_Bewertungsexperiment.csv`
-sind die finalen Rohdaten. 
+`data/Auswertung_Preisexperiment.csv` (356 Fälle) und
+`data/Auswertung_Bewertungsexperiment.csv` (388 Fälle) sind die Rohdaten: eine Zeile je
+Beobachtung, keine Vorab-Aggregation. Beide Dateien sind semikolongetrennt und verwenden
+das Dezimalkomma:
+
+```python
+pd.read_csv("data/Auswertung_Preisexperiment.csv", sep=";", decimal=",")
+```
+
+### Wie die Analysestichproben entstehen
+
+**Preisexperiment (356 → 246).** Sieben Fälle entfallen strukturell, weil sie bereits die
+überhöhte Erstforderung angenommen und damit nie über die Zielforderung entschieden haben;
+bei ihnen ist `Codierung` leer. Von den verbleibenden 349 Fällen scheitern 103 an mindestens
+einem der beiden Manipulationschecks. Es bleiben 246 Fälle.
+
+**Bewertungsexperiment (388 → 295).** 93 Fälle scheitern am Rollen- oder am Forderungscheck.
+Es bleiben 295 Fälle.
+
+Beide Filter sind in den Skripten identisch umgesetzt:
+
+```python
+# Preisexperiment
+df = df[df["Codierung"].notna()
+        & (df["Manipulationscheck_Preis"] == "Ja")
+        & (df["Manipulationscheck_Validitaet"] == "Ja")]          # -> 246
+
+# Bewertungsexperiment
+df = df[(df["Manipulationscheck_Rolle"] == "Ja")
+        & (df["Manipulationscheck_Forderung"] == "Ja")]           # -> 295
+```
+
+### Hinweis zur Spalte `Boomerang_Variable`
+
+`Boomerang_Variable` enthält in beiden Datensätzen den **Reaktanzindex**, also den Mittelwert
+aus der affektiven und der umgepolten kognitiven Komponente. Das Paper verwendet durchgängig
+die Bezeichnung Reaktanzindex. Die Spalte behielt ihre ursprüngliche Bezeichnung, damit die
+Auswertungsskripte unverändert und die Ergebnisse reproduzierbar bleiben. Beide Bezeichnungen
+meinen dieselbe Variable.
+
+### Codebuch Preisexperiment
+
+| Spalte | Bedeutung | Werte | Ableitung und Verwendung |
+|---|---|---|---|
+| `Datum` | Erhebungsdatum | TT.MM.JJJJ | Direkt erhoben, nicht ausgewertet |
+| `Zeitstempel` | Uhrzeit des Abschlusses | HH:MM:SS | Direkt erhoben, nicht ausgewertet |
+| `Treatment` | Höhe der Erstforderung in Euro | 849, 1500, 4000, 6000, 8000, 10000 (849 = Kontrolle) | Zufällige Zuweisung. Unabhängige Variable |
+| `Entscheidung_1` | Entscheidung über die Erstforderung | `Annahme`, `Ablehnung` | Direkt erhoben |
+| `Entscheidung_2` | Entscheidung über die Zielforderung (849 €) | `Annahme`, `Ablehnung`, `Nicht benötigt (Direkte Annahme)` | Direkt erhoben |
+| `Codierung` | **Abhängige Variable:** Annahme der Zielforderung | 1 = Annahme, 0 = Ablehnung, leer = kein Wert | Aus `Entscheidung_2`. Leer bei Direktannahme in T1–T5 (7 Fälle) |
+| `Erinnerter_Preis` | Erinnerte Erstforderung in Euro | Offene Eingabe, leer = keine Angabe (5 Fälle) | Item 1. Grundlage des Preis-Manipulationschecks |
+| `Angemessenheit` | Item 2a: Die Forderung war angemessen | 1–5 (1 = Stimme gar nicht zu) | Grundlage von `Angemessenheit_invertiert` |
+| `Wahrnehmungskontrast` | Item 2b: Die Zielforderung wirkte im Vergleich günstig | 1–5 | Mediator M1 |
+| `Konzession` | Item 2c: Die Preissenkung war ein Entgegenkommen | 1–5 | Mediator M2 |
+| `Reaktanz` | Item 2d: Verärgerung, verknüpft mit Ablehnung | 1–5 | Affektive Komponente. Doppelläufiges Item, im Paper als Limitation diskutiert |
+| `Validitaetscheck` | Item 2e: Szenario verständlich und nachvollziehbar | 1–5 | Grundlage des Validitätschecks |
+| `Angemessenheit_invertiert` | Umgepolte Angemessenheit, hohe Werte = Widerstand | 1–5 | `6 - Angemessenheit`. Ergänzende Mediationsanalyse (`h2_ergaenzung_item2a.py`) |
+| `Boomerang_Variable` | **Reaktanzindex** (siehe Hinweis oben) | 1–5 in Schritten von 0,5 | `(Angemessenheit_invertiert + Reaktanz) / 2`. Mediator M3 |
+| `Manipulationscheck_Preis` | Erstforderung korrekt erinnert? | `Ja`, `Nein` | `Ja`, wenn die Abweichung höchstens 10 % von `Treatment` beträgt. Fehlende Angabe zählt als `Nein` |
+| `Manipulationscheck_Validitaet` | Szenario verstanden? | `Ja`, `Nein` | `Ja`, wenn `Validitaetscheck >= 3` |
+
+### Codebuch Bewertungsexperiment
+
+| Spalte | Bedeutung | Werte | Ableitung und Verwendung |
+|---|---|---|---|
+| `Fallnummer` | Laufende Fallnummer | 1–388 | Beim Zusammenführen beider Phasen vergeben |
+| `Zeitpunkt` | Zeitstempel der Teilnahme | Millisekunden seit 01.01.1970 | Im Export auf fünf signifikante Stellen gerundet, nicht ausgewertet |
+| `Datenquelle` | Erhebungsphase | `sosci_import` (138), `render` (250) | Plattformwechsel, im Paper als Limitation diskutiert |
+| `Fragebogenversion` | Fragebogenversion | `sosci_nv_2026`, `render_v2` | Direkt erhoben |
+| `SoSci-Fallnummer` | Ursprüngliche Fallnummer der SoSci-Phase | Ganzzahl, leer bei `render` | Rückverfolgbarkeit |
+| `Treatment_Code` | Codierte Treatmentstufe | 1 = 9, 2 = 11, 3 = 13, 4 = 15 Punkte | Zufällige Zuweisung |
+| `Forderung_des_Studierenden` | Geforderte Punktzahl | 9, 11, 13, 15 (9 = Kontrolle) | Unabhängige Variable |
+| `Final_vergebene_Punktzahl` | **Abhängige Variable:** vergebene Punktzahl | Skala 0–15, beobachtet 1–15 | Direkt erhoben |
+| `Antwort_Rollenkontrolle` | Erinnerte eigene Rolle | `professor`, `student`, `external`, `none` | Korrekt ist `professor` |
+| `Erinnerte_Forderung` | Erinnerte geforderte Punktzahl | Offene Eingabe | Grundlage des Forderungschecks |
+| `Wahrgenommener_Druck` | Item 1: Die Forderung setzte mich unter Druck | 1–5 | Bestandteil des Bedrohungsindex |
+| `Eingeschraenkte_Bewertungsfreiheit` | Item 2: Die Forderung schränkte meine Bewertungsfreiheit ein | 1–5 | Bestandteil des Bedrohungsindex |
+| `Wahrnehmung_als_manipulativ` | Item 3: Die Forderung war ein Manipulationsversuch | 1–5 | Bestandteil des Bedrohungsindex |
+| `Veraergerung` | Item 4: Ärger über die Forderung (affektiv) | 1–5 | Bestandteil des Reaktanzindex |
+| `Wahrgenommene_Angemessenheit` | Item 5: Die Forderung war angemessen (kognitiv) | 1–5 | Grundlage von `Angemessenheit_invertiert` |
+| `Wahrgenommene_Fairness` | Item 6: Die Forderung war fair | 1–5 | Prädiktor in H4. Fließt bewusst nicht in den Reaktanzindex ein |
+| `Bearbeitungsdauer_in_Sekunden` | Bearbeitungsdauer | Ganzzahl in Sekunden | Dokumentation, nicht ausgewertet |
+| `Angemessenheit_invertiert` | Umgepolte Angemessenheit, hohe Werte = Widerstand | 1–5 | `6 - Wahrgenommene_Angemessenheit`. Trennschärfeprüfung in `h4_analysis.py` |
+| `Boomerang_Variable` | **Reaktanzindex** (siehe Hinweis oben) | 1–5 in Schritten von 0,5 | `(Veraergerung + Angemessenheit_invertiert) / 2`. Mediator in H3, abhängige Variable in H4 |
+| `Manipulationscheck_Rolle` | Rolle korrekt erinnert? | `Ja`, `Nein` | `Ja`, wenn `Antwort_Rollenkontrolle == "professor"` |
+| `Manipulationscheck_Forderung` | Forderung korrekt erinnert? | `Ja`, `Nein` | `Ja`, wenn `Erinnerte_Forderung == Forderung_des_Studierenden` |
+| `Bedrohungswahrnehmung_Index` | Index der wahrgenommenen Freiheitsbedrohung | 1–5 | Mittelwert der Items 1–3. Manipulationscheck in `manipulationscheck_bedrohung.py` |
+
+### Prüfsummen
+
+Aus den Rohdaten lassen sich die zentralen Kennzahlen des Papers direkt reproduzieren:
+
+| Kennzahl | Preisexperiment | Bewertungsexperiment |
+|---|---|---|
+| Erhobene Fälle | 356 | 388 |
+| Strukturell ausgeschlossen | 7 | – |
+| An Checks gescheitert | 103 | 93 |
+| Finale Analysestichprobe | 246 | 295 |
 
 
