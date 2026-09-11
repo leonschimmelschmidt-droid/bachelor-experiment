@@ -1,11 +1,3 @@
-"""
-Erstellt die Ergebnis-Grafiken fuer Kapitel 4 (Abbildung 6-10), passend zu den
-Analysen in h1_analysis.py bis h4_analysis.py. Stil: neutral/gedeckt (auch in
-Graustufen-Druck noch unterscheidbar), 300dpi PNG + Vektor-PDF fuer Word.
-
-Ausgabe: ./figures/Abbildung_6_h1_preisexperiment.png (+.pdf), usw.
-"""
-
 import os
 import csv
 import numpy as np
@@ -36,7 +28,6 @@ def de_num(x, decimals=3):
     s = s.replace(".", ",")
     return s
 
-# --- einheitlicher, gedeckter Stil -------------------------------------------------
 plt.rcParams.update({
     "font.family": "serif",
     "font.size": 11,
