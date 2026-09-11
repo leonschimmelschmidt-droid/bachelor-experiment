@@ -69,6 +69,9 @@ Abbildungen 1-5 im Paper an):
 
 `figure_streuung_bewertungsexperiment.py` erzeugt **Abbildung 8**
 
+- **Abbildung 8** - Verteilung der vergebenen Punktzahl je Bedingung,
+Bewertungsexperiment - Begleitgrafik zur Streuungsanalyse.
+
 ## Daten
 
 `data/Auswertung_Preisexperiment.csv` und `data/Auswertung_Bewertungsexperiment.csv`
