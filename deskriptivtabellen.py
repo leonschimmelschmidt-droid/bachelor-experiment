@@ -1,16 +1,3 @@
-"""
-Deskriptivtabellen (N, M, SD je Bedingung) fuer beide Experimente.
-
-Verwendet jeweils dieselbe finale Analysestichprobe wie die Haupttests
-(H1/H2 bzw. H3/H4): Preisexperiment N = 246 (alle 6 Bedingungen inkl.
-Kontrolle), Bewertungsexperiment N = 295 (alle 4 Bedingungen).
-
-Hinweis: Die Mediatoren (Wahrnehmungskontrast, Konzession, Boomerang-
-Variable) werden hier deskriptiv auch fuer die Kontrollbedingung (849 Euro)
-ausgewiesen, obwohl diese Bedingung in den Mediations-/Kurvenmodellen
-(Abschnitt 4.1/4.2) nicht mitgeschaetzt wird (vgl. Abschnitt 3.2.3/4.2).
-"""
-
 import csv
 import numpy as np
 import os
