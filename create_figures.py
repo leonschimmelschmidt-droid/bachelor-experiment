@@ -143,7 +143,7 @@ final2 = [r for r in rows2 if r["Manipulationscheck_Rolle"].strip() == "Ja"
           and r["Manipulationscheck_Forderung"].strip() == "Ja"]
 
 ford = np.array([to_float(r["Forderung_des_Studierenden"]) for r in final2])
-punkte = np.array([to_float(r["Vergebene_Punktzahl"]) for r in final2])
+punkte = np.array([to_float(r["Final_vergebene_Punktzahl"]) for r in final2])
 ford_c = ford - ford.mean()
 X2 = np.column_stack([ford_c, ford_c ** 2])
 res2 = ols_with_inference(X2, punkte)
@@ -169,7 +169,7 @@ for c, m, n, ci in zip(conds2, means2, ns2, ci95):
     ax.annotate(f"n={n}", (c, m + ci), textcoords="offset points", xytext=(0, 6),
                 ha="center", fontsize=8, color="#555555")
 ax.set_xlabel("Forderung des Studierenden (Punkte)")
-ax.set_ylabel("Final vergebene Punktzahl")
+ax.set_ylabel("Vergebene Punktzahl")
 ax.set_xticks(conds2)
 ax.set_ylim(ax.get_ylim()[0], max(np.array(means2) + ci95) + 0.35)
 ax.legend(fontsize=8, loc="lower right", framealpha=0.9)
