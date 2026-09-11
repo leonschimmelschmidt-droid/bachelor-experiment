@@ -21,13 +21,15 @@ Koeffizienten).
 - `h2_analysis.py` — H2: Mediationsanalyse Preisexperiment (paralleles
   Mehrfachmediatormodell, Aufwärtsphase via Konzession, Abwärtsphase via
   Boomerang-Variable), Bootstrap-KI (5000 Replikationen, BC).
+- `h2_ergaenzung_item2a.py` - Ergaenzende Mediationsanalyse H2, allein mit Item 2a (Angemessenheit_invertiert) 
 - `h3_analysis.py` — H3: Mediationsanalyse Bewertungsexperiment (Forderung →
   Reaktanz/Boomerang-Variable → vergebene Punktzahl), Bootstrap-KI.
 - `h4_analysis.py` — H4: Fairness → Reaktanz, plus die in 3.3.3 angekündigte
   Trennschärfe-Prüfung Item 5 (Angemessenheit_invertiert) vs. Item 6 (Fairness).
-
 - `h4_kontrolle_forderungshoehe.py` - H4-Robustheitspruefung: Regression der Boomerang-Variable auf die wahrgenommene
 Fairness, mit und ohne Kontrolle fuer die Forderungshoehe.
+
+- `deskriptivtabellen.py` - Deskriptivtabellen (N, M, SD je Bedingung) fuer beide Experimente. Verwendet jeweils dieselbe finale Analysestichprobe wie die Haupttests (H1/H2 bzw. H3/H4): Preisexperiment N = 246 (alle 6 Bedingungen inkl. Kontrolle), Bewertungsexperiment N = 295 (alle 4 Bedingungen).
 - `kontrollvergleich_preisexperiment.py` - Kontroll-vs.-Treatment-Vergleich, Preisexperiment
 - `levene-streuung-bewertungsexperiment.py` - Streuungsanalyse (Levene-Test), Bewertungsexperiment: Ergaenzung zu H1
 - `manipulationscheck_angemessenheit.py` - Manipulationscheck: Wahrgenommene Angemessenheit (Item 2a) ~ Erstforderung,
