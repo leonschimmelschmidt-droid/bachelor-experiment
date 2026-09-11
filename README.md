@@ -37,7 +37,7 @@ Bewertungsexperiment.
 - `quantile_trend_bewertungsexperiment.py`- Empirische Quantile je Bedingung + Cochran-Armitage-Trendtest,
 Bewertungsexperiment: ersetzt quantilsregression_bewertungsexperiment.py als
 Ergaenzung zur Streuungsanalyse in Abschnitt 4.2 (Levene-Test, vgl.
-levene_streuung_bewertungsexperiment.py).
+levene-streuung-bewertungsexperiment.py).
 - `robustheitscheck_direktannahmen.py` - Robustheitscheck: H1-Kurve im Preisexperiment,
 Direktannahmen der Erstforderung in den Treatmentbedingungen zusaetzlich als
 Annahme (Codierung = 1) gewertet, statt sie strukturell auszuschliessen.
