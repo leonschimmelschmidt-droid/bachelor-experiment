@@ -143,7 +143,7 @@ final2 = [r for r in rows2 if r["Manipulationscheck_Rolle"].strip() == "Ja"
           and r["Manipulationscheck_Forderung"].strip() == "Ja"]
 
 ford = np.array([to_float(r["Forderung_des_Studierenden"]) for r in final2])
-punkte = np.array([to_float(r["Final_vergebene_Punktzahl"]) for r in final2])
+punkte = np.array([to_float(r["Vergebene_Punktzahl"]) for r in final2])
 ford_c = ford - ford.mean()
 X2 = np.column_stack([ford_c, ford_c ** 2])
 res2 = ols_with_inference(X2, punkte)
