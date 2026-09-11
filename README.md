@@ -72,7 +72,6 @@ Abbildungen 1-5 im Paper an):
 ## Daten
 
 `data/Auswertung_Preisexperiment.csv` und `data/Auswertung_Bewertungsexperiment.csv`
-sind die finalen, bereits mit den Ausschluss-/Manipulationscheck-Spalten
-angereicherten Exporte.
+sind die finalen Rohdaten. 
 
 
