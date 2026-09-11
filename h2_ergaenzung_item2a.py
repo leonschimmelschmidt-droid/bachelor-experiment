@@ -1,3 +1,5 @@
+""" Ergaenzende Mediationsanalyse H2, allein mit Item 2a (Angemessenheit_invertiert) """
+
 import csv
 import numpy as np
 import os
