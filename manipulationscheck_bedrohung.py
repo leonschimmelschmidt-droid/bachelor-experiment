@@ -2,14 +2,6 @@
 Manipulationscheck: Wahrgenommene Bedrohung (Items 1-3) ~ Forderung
 Bewertungsexperiment.
 
-Items 1-3 (Wahrgenommener_Druck, Eingeschraenkte_Bewertungsfreiheit,
-Wahrnehmung_als_manipulativ) sind an die Threat-to-Freedom-Skala von
-Dillard und Shen (2005, S. 153) angelehnt und dienen laut 3.3.3 als
-Manipulationscheck: sie sollen pruefen, ob eine hoehere Forderung
-tatsaechlich als staerkere Bedrohung der eigenen Bewertungsfreiheit
-wahrgenommen wird, bevor ihre Wirkung auf Aerger und Bewertung (H3/H4)
-interpretiert wird.
-
 Bedrohungswahrnehmung_Index = Mittelwert der drei Items (bereits in der
 CSV vorberechnet).
 """
