@@ -65,9 +65,6 @@ Argument welchen Teil der Rueckrechnung traegt.
 SoSci-Phase (vgl. Abschnitt "Korrektur der SoSci-Punktzahlen"). Bereits auf die
 im Repository liegende Datendatei angewendet; das Skript bricht bei erneuter
 Ausfuehrung ohne Aenderung ab.
-- `abbildungsformat.py` - Hilfsfunktionen fuer die Achsenformatierung:
-`dezimalkomma(ax)` setzt ein Dezimalkomma statt eines Punkts, `scheitelpunkt(ax, x)`
-markiert den Scheitelpunkt in Abbildung 7. Werden in `create_figures.py` importiert.
 - `create_figures.py` — erzeugt Abbildung 6, 7, 9, 10 und 11 (siehe unten) als PNG (300dpi)
   und Vektor-PDF im Ordner `figures/`.
   
