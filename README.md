@@ -12,6 +12,8 @@ mit NumPy/SciPy implementiert und wurden gegen `sklearn` gegengeprüft (identisc
 Koeffizienten). 
 ## Skripte
 
+### Hypothesentests
+
 - `h1_analysis.py` — H1: umgekehrt U-förmiger Zusammenhang (quadratische
   Regression) für beide Experimente.
 - `h2_analysis.py` — H2: Mediationsanalyse Preisexperiment (paralleles
@@ -25,6 +27,8 @@ Koeffizienten).
 - `h4_kontrolle_forderungshoehe.py` - H4-Robustheitspruefung: Regression der Boomerang-Variable auf die wahrgenommene
 Fairness, mit und ohne Kontrolle fuer die Forderungshoehe.
 
+### Deskriptives, Manipulationschecks und Ergänzungen
+
 - `deskriptivtabellen.py` - Deskriptivtabellen (N, M, SD je Bedingung) fuer beide Experimente. Verwendet jeweils dieselbe finale Analysestichprobe wie die Haupttests (H1/H2 bzw. H3/H4): Preisexperiment N = 246 (alle 6 Bedingungen inkl. Kontrolle), Bewertungsexperiment N = 295 (alle 4 Bedingungen).
 - `kontrollvergleich_preisexperiment.py` - Kontroll-vs.-Treatment-Vergleich, Preisexperiment
 - `levene-streuung-bewertungsexperiment.py` - Streuungsanalyse (Levene-Test), Bewertungsexperiment: Ergaenzung zu H1
@@ -36,15 +40,34 @@ Bewertungsexperiment.
 Bewertungsexperiment: ersetzt quantilsregression_bewertungsexperiment.py als
 Ergaenzung zur Streuungsanalyse in Abschnitt 4.2 (Levene-Test, vgl.
 levene_streuung_bewertungsexperiment.py).
+
+### Robustheitschecks
+
 - `robustheitscheck_direktannahmen.py` - Robustheitscheck: H1-Kurve im Preisexperiment,
 Direktannahmen der Erstforderung in den Treatmentbedingungen zusaetzlich als
 Annahme (Codierung = 1) gewertet, statt sie strukturell auszuschliessen.
+- `robustheitscheck_ohne_validitaetscheck.py` - Robustheitscheck: H1-Kurve im
+Preisexperiment ohne den Validitaetscheck (Item 2e) als Ausschlusskriterium.
+Prueft die in Abschnitt 6 aufgeworfene Frage, ob das ungleich ueber die
+Treatmentstufen verteilte Kriterium die Faelle mit der staerksten
+Abwaertsreaktion entfernt hat. Der quadratische Term bleibt mit und ohne
+Kriterium insignifikant (b2 = 0,007, p = ,735 auf 251 Faellen).
+- `h1_robustheit_erhebungsphase.py` - Robustheitscheck zu H1, Bewertungsexperiment:
+getrennte Schaetzung nach Erhebungsphase. Die Render-Phase ist von der
+SoSci-Rueckrechnung nicht betroffen und liefert einen von ihr unabhaengigen Test
+(N = 203, b2 = -0,079, p = ,001, Scheitelpunkt 13,4). Das Skript weist zusaetzlich
+aus, warum die SoSci-Teilstichprobe diesen Test nicht leisten kann, und welches
+Argument welchen Teil der Rueckrechnung traegt.
+
+### Datenaufbereitung und Darstellung
+
 - `korrektur_sosci_punktzahl.py` - Einmalige Korrektur der Bewertungsvariable aus der
 SoSci-Phase (vgl. Abschnitt "Korrektur der SoSci-Punktzahlen"). Bereits auf die
 im Repository liegende Datendatei angewendet; das Skript bricht bei erneuter
 Ausfuehrung ohne Aenderung ab.
-
-
+- `abbildungsformat.py` - Hilfsfunktionen fuer die Achsenformatierung:
+`dezimalkomma(ax)` setzt ein Dezimalkomma statt eines Punkts, `scheitelpunkt(ax, x)`
+markiert den Scheitelpunkt in Abbildung 7. Werden in `create_figures.py` importiert.
 - `create_figures.py` — erzeugt Abbildung 6, 7, 9, 10 und 11 (siehe unten) als PNG (300dpi)
   und Vektor-PDF im Ordner `figures/`.
   
@@ -60,7 +83,7 @@ Abbildungen 1-5 im Paper an):
   dargestellt, da sie nicht Teil der Kurve ist.
 - **Abbildung 7** — Bewertungsexperiment: vergebene Punktzahl je Forderung
   mit angepasster quadratischer Kurve (H1). Der Scheitelpunkt der Kurve liegt
-  bei einer Forderung von 13,4 Punkten.
+  bei einer Forderung von 13,4 Punkten und ist als senkrechte Linie markiert.
 - **Abbildung 9** — Preisexperiment: Forest-Plot der drei indirekten Effekte
   aus dem Mehrfachmediatormodell (H2), mit 95%-BC-Bootstrap-KI.
 - **Abbildung 10** — Bewertungsexperiment: Pfaddiagramm des Mediationsmodells
@@ -72,6 +95,8 @@ Abbildungen 1-5 im Paper an):
 
 - **Abbildung 8** - Verteilung der vergebenen Punktzahl je Bedingung,
 Bewertungsexperiment - Begleitgrafik zur Streuungsanalyse.
+
+Alle Achsen mit Dezimalstellen verwenden das Dezimalkomma (vgl. `abbildungsformat.py`).
 
 ## Daten und Codebuch
 
@@ -113,6 +138,10 @@ unverändert bei 295 Fällen, da die Manipulationschecks die Bewertungsvariable 
 heranziehen. Die Korrektur ist in `korrektur_sosci_punktzahl.py` dokumentiert und
 nachvollziehbar; das Skript bricht bei erneuter Ausführung ohne Änderung ab.
 
+Dass der Befund zu H1 nicht an dieser Rückrechnung hängt, prüft
+`h1_robustheit_erhebungsphase.py`. Die Render-Phase ist von ihr nicht betroffen und zeigt
+den umgekehrt U-förmigen Verlauf für sich allein.
+
 ### Wie die Analysestichproben entstehen
 
 **Preisexperiment (356 → 246).** Sieben Fälle entfallen strukturell, weil sie bereits die
@@ -144,6 +173,9 @@ die Bezeichnung Reaktanzindex. Die Spalte behielt ihre ursprüngliche Bezeichnun
 Auswertungsskripte unverändert und die Ergebnisse reproduzierbar bleiben. Beide Bezeichnungen
 meinen dieselbe Variable.
 
+Die Itemtexte in den folgenden Tabellen sind wörtlich aus den Fragebögen in Anhang C und D
+des Papers übernommen.
+
 ### Codebuch Preisexperiment
 
 | Spalte | Bedeutung | Werte | Ableitung und Verwendung |
@@ -154,12 +186,12 @@ meinen dieselbe Variable.
 | `Entscheidung_1` | Entscheidung über die Erstforderung | `Annahme`, `Ablehnung` | Direkt erhoben |
 | `Entscheidung_2` | Entscheidung über die Zielforderung (849 €) | `Annahme`, `Ablehnung`, `Nicht benötigt (Direkte Annahme)` | Direkt erhoben |
 | `Codierung` | **Abhängige Variable:** Annahme der Zielforderung | 1 = Annahme, 0 = Ablehnung, leer = kein Wert | Aus `Entscheidung_2`. Leer bei Direktannahme in T1–T5 (7 Fälle) |
-| `Erinnerter_Preis` | Erinnerte Erstforderung in Euro | Offene Eingabe, leer = keine Angabe (5 Fälle) | Item 1. Grundlage des Preis-Manipulationschecks |
-| `Angemessenheit` | Item 2a: Die Forderung war angemessen | 1–5 (1 = Stimme gar nicht zu) | Grundlage von `Angemessenheit_invertiert` |
-| `Wahrnehmungskontrast` | Item 2b: Die Zielforderung wirkte im Vergleich günstig | 1–5 | Mediator M1 |
-| `Konzession` | Item 2c: Die Preissenkung war ein Entgegenkommen | 1–5 | Mediator M2 |
-| `Reaktanz` | Item 2d: Verärgerung, verknüpft mit Ablehnung | 1–5 | Affektive Komponente. Doppelläufiges Item, im Paper als Limitation diskutiert |
-| `Validitaetscheck` | Item 2e: Szenario verständlich und nachvollziehbar | 1–5 | Grundlage des Validitätschecks |
+| `Erinnerter_Preis` | Item 1: „Wie hoch war das erste Angebot, das Ihnen der Vertreter an der Tür gemacht hat?" | Offene Eingabe in Euro, leer = keine Angabe (5 Fälle) | Grundlage des Preis-Manipulationschecks |
+| `Angemessenheit` | Item 2a: „Der erste Angebotspreis wirkte auf mich angemessen." | 1–5 (1 = Stimme gar nicht zu) | Grundlage von `Angemessenheit_invertiert` |
+| `Wahrnehmungskontrast` | Item 2b: „Das finale Angebot von 849 € wirkte auf mich attraktiv." | 1–5 | Mediator M1. Erfasst die Attraktivität der Zielforderung, nicht den Vergleich beider Forderungen; im Paper als Limitation diskutiert |
+| `Konzession` | Item 2c: „Das finale Angebot von 849 € wirkte wie ein Entgegenkommen bzw. Zugeständnis des Verkäufers." | 1–5 | Mediator M2 |
+| `Reaktanz` | Item 2d: „Das erste Angebot hat in mir Verärgerung ausgelöst und dazu geführt, dass ich auch das finale Angebot abgelehnt habe." | 1–5 | Affektive Komponente. Doppelläufiges Item, im Paper als Limitation diskutiert |
+| `Validitaetscheck` | Item 2e: „Das Szenario war für mich verständlich und nachvollziehbar." | 1–5 | Grundlage des Validitätschecks |
 | `Angemessenheit_invertiert` | Umgepolte Angemessenheit, hohe Werte = Widerstand | 1–5 | `6 - Angemessenheit`. Ergänzende Mediationsanalyse (`h2_ergaenzung_item2a.py`) |
 | `Boomerang_Variable` | **Reaktanzindex** (siehe Hinweis oben) | 1–5 in Schritten von 0,5 | `(Angemessenheit_invertiert + Reaktanz) / 2`. Mediator M3 |
 | `Manipulationscheck_Preis` | Erstforderung korrekt erinnert? | `Ja`, `Nein` | `Ja`, wenn die Abweichung höchstens 10 % von `Treatment` beträgt. Fehlende Angabe zählt als `Nein` |
@@ -176,15 +208,15 @@ meinen dieselbe Variable.
 | `SoSci-Fallnummer` | Ursprüngliche Fallnummer der SoSci-Phase | Ganzzahl, leer bei `render` | Rückverfolgbarkeit |
 | `Treatment_Code` | Codierte Treatmentstufe | 1 = 9, 2 = 11, 3 = 13, 4 = 15 Punkte | Zufällige Zuweisung |
 | `Forderung_des_Studierenden` | Geforderte Punktzahl | 9, 11, 13, 15 (9 = Kontrolle) | Unabhängige Variable |
-| `Final_vergebene_Punktzahl` | **Abhängige Variable:** vergebene Punktzahl | Skala 0–15, beobachtet 5–15 | Direkt erhoben. Für die Fälle der SoSci-Phase zurückgerechnet als `16 - Positionscode` der Antwortoption (Frage NV08), siehe Abschnitt „Korrektur der SoSci-Punktzahlen" |
+| `Final_vergebene_Punktzahl` | **Abhängige Variable:** vergebene Punktzahl (Frage NV08) | Skala 0–15, beobachtet 5–15 | Direkt erhoben. Für die Fälle der SoSci-Phase zurückgerechnet als `16 - Positionscode` der Antwortoption, siehe Abschnitt „Korrektur der SoSci-Punktzahlen" |
 | `Antwort_Rollenkontrolle` | Erinnerte eigene Rolle | `professor`, `student`, `external`, `none` | Korrekt ist `professor` |
 | `Erinnerte_Forderung` | Erinnerte geforderte Punktzahl | Offene Eingabe | Grundlage des Forderungschecks |
-| `Wahrgenommener_Druck` | Item 1: Die Forderung setzte mich unter Druck | 1–5 | Bestandteil des Bedrohungsindex |
-| `Eingeschraenkte_Bewertungsfreiheit` | Item 2: Die Forderung schränkte meine Bewertungsfreiheit ein | 1–5 | Bestandteil des Bedrohungsindex |
-| `Wahrnehmung_als_manipulativ` | Item 3: Die Forderung war ein Manipulationsversuch | 1–5 | Bestandteil des Bedrohungsindex |
-| `Veraergerung` | Item 4: Ärger über die Forderung (affektiv) | 1–5 | Bestandteil des Reaktanzindex |
-| `Wahrgenommene_Angemessenheit` | Item 5: Die Forderung war angemessen (kognitiv) | 1–5 | Grundlage von `Angemessenheit_invertiert` |
-| `Wahrgenommene_Fairness` | Item 6: Die Forderung war fair | 1–5 | Prädiktor in H4. Fließt bewusst nicht in den Reaktanzindex ein |
+| `Wahrgenommener_Druck` | Item 1: „Die Forderung des Studierenden hat bei mir Druck ausgelöst." | 1–5 | Bestandteil des Bedrohungsindex |
+| `Eingeschraenkte_Bewertungsfreiheit` | Item 2: „Die Forderung hat meine Freiheit bei der Bewertung eingeschränkt." | 1–5 | Bestandteil des Bedrohungsindex |
+| `Wahrnehmung_als_manipulativ` | Item 3: „Die Forderung des Studierenden wirkte auf mich manipulativ." | 1–5 | Bestandteil des Bedrohungsindex |
+| `Veraergerung` | Item 4: „Die Forderung des Studierenden hat mich verärgert." | 1–5 | Affektive Komponente des Reaktanzindex |
+| `Wahrgenommene_Angemessenheit` | Item 5: „Die Forderung des Studierenden wirkte auf mich angemessen." | 1–5 | Kognitive Komponente. Grundlage von `Angemessenheit_invertiert` |
+| `Wahrgenommene_Fairness` | Item 6: „Die Forderung des Studierenden wirkte auf mich fair." | 1–5 | Prädiktor in H4. Fließt bewusst nicht in den Reaktanzindex ein |
 | `Bearbeitungsdauer_in_Sekunden` | Bearbeitungsdauer | Ganzzahl in Sekunden | Dokumentation, nicht ausgewertet |
 | `Angemessenheit_invertiert` | Umgepolte Angemessenheit, hohe Werte = Widerstand | 1–5 | `6 - Wahrgenommene_Angemessenheit`. Trennschärfeprüfung in `h4_analysis.py` |
 | `Boomerang_Variable` | **Reaktanzindex** (siehe Hinweis oben) | 1–5 in Schritten von 0,5 | `(Veraergerung + Angemessenheit_invertiert) / 2`. Mediator in H3, abhängige Variable in H4 |
@@ -211,5 +243,4 @@ Fassung ist:
 | Spanne `Final_vergebene_Punktzahl` | 5 bis 15 |
 | Mittelwert der SoSci-Phase | 9,65 |
 | Mittelwert der Render-Phase | 9,75 |
-
 
