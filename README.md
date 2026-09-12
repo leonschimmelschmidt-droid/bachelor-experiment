@@ -31,7 +31,7 @@ Fairness, mit und ohne Kontrolle fuer die Forderungshoehe.
 
 - `deskriptivtabellen.py` - Deskriptivtabellen (N, M, SD je Bedingung) fuer beide Experimente. Verwendet jeweils dieselbe finale Analysestichprobe wie die Haupttests (H1/H2 bzw. H3/H4): Preisexperiment N = 246 (alle 6 Bedingungen inkl. Kontrolle), Bewertungsexperiment N = 295 (alle 4 Bedingungen).
 - `kontrollvergleich_preisexperiment.py` - Kontroll-vs.-Treatment-Vergleich, Preisexperiment
-- `levene-streuung-bewertungsexperiment.py` - Streuungsanalyse (Levene-Test), Bewertungsexperiment: Ergaenzung zu H1
+- `levene_streuung_bewertungsexperiment.py` - Streuungsanalyse (Levene-Test), Bewertungsexperiment: Ergaenzung zu H1
 - `manipulationscheck_angemessenheit.py` - Manipulationscheck: Wahrgenommene Angemessenheit (Item 2a) ~ Erstforderung,
 Preisexperiment
 - `manipulationscheck_bedrohung.py` - Manipulationscheck: Wahrgenommene Bedrohung (Items 1-3) ~ Forderung
@@ -43,7 +43,7 @@ levene_streuung_bewertungsexperiment.py).
 
 ### Robustheitschecks
 
-- `robustheitscheck_direktannahmen.py` - Robustheitscheck: H1-Kurve im Preisexperiment,
+- `robustheitscheck_direktannahme.py` - Robustheitscheck: H1-Kurve im Preisexperiment,
 Direktannahmen der Erstforderung in den Treatmentbedingungen zusaetzlich als
 Annahme (Codierung = 1) gewertet, statt sie strukturell auszuschliessen.
 - `robustheitscheck_ohne_validitaetscheck.py` - Robustheitscheck: H1-Kurve im
@@ -95,8 +95,6 @@ Abbildungen 1-5 im Paper an):
 
 - **Abbildung 8** - Verteilung der vergebenen Punktzahl je Bedingung,
 Bewertungsexperiment - Begleitgrafik zur Streuungsanalyse.
-
-Alle Achsen mit Dezimalstellen verwenden das Dezimalkomma (vgl. `abbildungsformat.py`).
 
 ## Daten und Codebuch
 
