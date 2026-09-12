@@ -1,26 +1,5 @@
 """
 Robustheitscheck: H1-Kurve im Preisexperiment ohne den Validitaetscheck.
-
-Hintergrund
------------
-Abschnitt 6 haelt fest, dass der Validitaetscheck (Item 2e) ungleich ueber die
-Treatmentstufen ausfaellt: Bei 849 und 1.500 Euro scheitern vier bzw. drei
-Faelle, bei 10.000 Euro dagegen 17. Das Kriterium schliesst damit gerade jene
-Probanden ueberproportional aus, denen die hoechsten Erstforderungen
-unglaubwuerdig erschienen. Da nach Schwarzwald, Raz und Zvibel (1979, S. 578)
-genau diese Unglaubwuerdigkeit den Boomerang-Effekt traegt, koennte die
-Bereinigung die Faelle mit der staerksten Abwaertsreaktion entfernt haben.
-
-Dieses Skript prueft das. Die H1-Kurve wird zweimal geschaetzt: einmal auf der
-im Paper verwendeten Analysestichprobe und einmal ohne den Validitaetscheck,
-also auf allen Faellen mit bestandenem Preis-Manipulationscheck.
-
-Ergebnis: Der quadratische Term bleibt in beiden Faellen insignifikant. Das
-Ausbleiben einer Abwaertsphase im Preisexperiment geht nicht auf das
-Ausschlusskriterium zurueck.
-
-Wie in den uebrigen Skripten geht die Kontrollbedingung (849 Euro) nicht in die
-Kurve ein (vgl. Abschnitt 3.1).
 """
 
 import numpy as np
