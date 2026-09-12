@@ -58,8 +58,7 @@ Monte-Carlo-Simulation (4000 Replikationen je Gitterpunkt, fester Seed) den
 kleinsten Kruemmungseffekt, den das Design mit 80 Prozent Wahrscheinlichkeit
 haette nachweisen koennen: beta2 = -0,056, was einem Abfall der modellierten
 Annahmequote von rund 32 auf 14 Prozent ueber den getesteten Bereich
-entspricht. Der Docstring begruendet, warum eine Sensitivitaets- und keine
-Post-hoc-Analyse gerechnet wird.
+entspricht. 
 - `h1_robustheit_erhebungsphase.py` - Robustheitscheck zu H1, Bewertungsexperiment:
 getrennte Schaetzung nach Erhebungsphase. Die Render-Phase ist von der
 SoSci-Rueckrechnung nicht betroffen und liefert einen von ihr unabhaengigen Test
