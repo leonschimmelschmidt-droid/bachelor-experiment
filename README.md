@@ -52,6 +52,14 @@ Prueft die in Abschnitt 6 aufgeworfene Frage, ob das ungleich ueber die
 Treatmentstufen verteilte Kriterium die Faelle mit der staerksten
 Abwaertsreaktion entfernt hat. Der quadratische Term bleibt mit und ohne
 Kriterium insignifikant (b2 = 0,007, p = ,735 auf 251 Faellen).
+- `sensitivitaetsanalyse_preisexperiment.py` - Sensitivitaetsanalyse zur
+Teststaerke des quadratischen Terms im Preisexperiment. Bestimmt per
+Monte-Carlo-Simulation (4000 Replikationen je Gitterpunkt, fester Seed) den
+kleinsten Kruemmungseffekt, den das Design mit 80 Prozent Wahrscheinlichkeit
+haette nachweisen koennen: beta2 = -0,056, was einem Abfall der modellierten
+Annahmequote von rund 32 auf 14 Prozent ueber den getesteten Bereich
+entspricht. Der Docstring begruendet, warum eine Sensitivitaets- und keine
+Post-hoc-Analyse gerechnet wird.
 - `h1_robustheit_erhebungsphase.py` - Robustheitscheck zu H1, Bewertungsexperiment:
 getrennte Schaetzung nach Erhebungsphase. Die Render-Phase ist von der
 SoSci-Rueckrechnung nicht betroffen und liefert einen von ihr unabhaengigen Test
@@ -95,13 +103,16 @@ Bewertungsexperiment - Begleitgrafik zur Streuungsanalyse.
 
 ## Daten und Codebuch
 
-`data/Auswertung_Preisexperiment.csv` (356 Fälle) und
-`data/Auswertung_Bewertungsexperiment.csv` (388 Fälle) sind die Rohdaten: eine Zeile je
-Beobachtung, keine Vorab-Aggregation. Beide Dateien sind semikolongetrennt und verwenden
-das Dezimalkomma:
+`Auswertung_Preisexperiment.csv` (356 Fälle) und
+`Auswertung_Bewertungsexperiment.csv` (388 Fälle) sind die Rohdaten: eine Zeile je
+Beobachtung, keine Vorab-Aggregation. Sie liegen neben den Skripten. Die Skripte
+lokalisieren sie über `find_data_file` aus `regression_utils.py`, das zusätzlich
+einen Unterordner `data/` akzeptiert — die Ordnerstruktur muss beim Entpacken also
+nicht erhalten bleiben. Beide Dateien sind semikolongetrennt und verwenden das
+Dezimalkomma:
 
 ```python
-pd.read_csv("data/Auswertung_Preisexperiment.csv", sep=";", decimal=",")
+pd.read_csv("Auswertung_Preisexperiment.csv", sep=";", decimal=",")
 ```
 
 ### Korrektur der SoSci-Punktzahlen
@@ -238,4 +249,3 @@ Fassung ist:
 | Spanne `Final_vergebene_Punktzahl` | 5 bis 15 |
 | Mittelwert der SoSci-Phase | 9,65 |
 | Mittelwert der Render-Phase | 9,75 |
-
