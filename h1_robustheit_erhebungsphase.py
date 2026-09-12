@@ -2,13 +2,6 @@
 Robustheitscheck zu H1: getrennte Schaetzung nach Erhebungsphase,
 Bewertungsexperiment.
 
-Hintergrund
------------
-Die in Abschnitt 3.4 beschriebene Rueckrechnung der SoSci-Werte
-(Punktzahl = 16 - Positionscode der Frage NV08) enthaelt eine Annahme ueber die
-Kodierung. Dieses Skript zeigt, dass der Befund zu H1 nicht an dieser Annahme
-haengt.
-
 Teil 1 schaetzt die H1-Kurve getrennt fuer beide Erhebungsphasen. Die
 Render-Phase wurde ueber eine eigene Weberhebung erfasst, die den Punktwert
 direkt speichert. Sie ist von der Rueckrechnung nicht betroffen und liefert
@@ -132,8 +125,6 @@ def main():
         print(f"    SoSci, {name:<28} {y.mean():>8.2f}")
     print("\n    Nur mit 16 als Bezugswert fallen die Mittelwerte zusammen.")
     print("    Beide Argumente zusammen legen die Rueckrechnung eindeutig fest.")
-    print("    Dokumentarisch belegt ist sie ohnehin durch die Optionsliste von")
-    print("    NV08 (vgl. Anhang D).")
 
 
 if __name__ == "__main__":
