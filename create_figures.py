@@ -230,7 +230,7 @@ for i in range(N_BOOT):
     boot[i, 1] = aa2 * bf[3]
     boot[i, 2] = aa3 * bf[4]
 
-labels_h2 = ["Kontrasteffekt", "Konzession\n(Aufwärtsphase)", "Reaktanzindex\n(Abwärtsphase)"]
+labels_h2 = ["Wahrnehmungskontrast", "Konzession\n(Aufwärtsphase)", "Reaktanzindex\n(Abwärtsphase)"]
 los_h2, his_h2 = [], []
 for i in range(3):
     lo, hi = bc_ci_with_point(boot[:, i], points[i])
