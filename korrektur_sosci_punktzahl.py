@@ -5,7 +5,7 @@ Korrektur der Bewertungsvariable aus der SoSci-Phase, Bewertungsexperiment.
 import sys
 import pandas as pd
 
-PFAD = "data/Auswertung_Bewertungsexperiment.csv"
+PFAD = "Auswertung_Bewertungsexperiment.csv"
 SPALTE = "Final_vergebene_Punktzahl"
 PHASE = "sosci_import"
 OPTIONEN = 16  # Anzahl der Antwortoptionen von NV08: 15 bis 0 Punkte
