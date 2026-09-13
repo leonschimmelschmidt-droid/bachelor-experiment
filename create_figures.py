@@ -311,7 +311,7 @@ ax.scatter(jitter_x, jitter_y, s=14, color=MAIN_COLOR, alpha=0.45, edgecolors="n
 fair_grid = np.linspace(fairness.min(), fairness.max(), 100)
 y_line = beta_h4[0] + beta_h4[1] * (fair_grid - fairness.mean())
 ax.plot(fair_grid, y_line, color=FIT_COLOR, lw=2.2, label=f"Regressionsgerade (β = {de_num(beta_h4[1])}, p<,001)")
-ax.set_xlabel("Wahrgenommene Fairness der Erstforderung (1-5)")
+ax.set_xlabel("Wahrgenommene Fairness der Forderung (1-5)")
 ax.set_ylabel("Reaktanz (Reaktanzindex, 1-5)")
 ax.set_xlim(0.5, 5.5); ax.set_ylim(0.5, 5.5)
 ax.legend(fontsize=8, loc="upper right", framealpha=0.9)
