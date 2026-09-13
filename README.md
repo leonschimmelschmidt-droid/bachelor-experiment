@@ -69,7 +69,7 @@ Argument welchen Teil der Rueckrechnung traegt.
 ### Datenaufbereitung und Darstellung
 
 - `korrektur_sosci_punktzahl.py` - Einmalige Korrektur der Bewertungsvariable aus der
-SoSci-Phase (vgl. Abschnitt "Korrektur der SoSci-Punktzahlen"). Bereits auf die
+SoSci-Phase. Bereits auf die
 im Repository liegende Datendatei angewendet; das Skript bricht bei erneuter
 Ausfuehrung ohne Aenderung ab.
 - `create_figures.py` — erzeugt Abbildung 6, 7, 9, 10 und 11 (siehe unten) als PNG (300dpi)
